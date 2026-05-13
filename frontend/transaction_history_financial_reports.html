@@ -110,3 +110,115 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .cyber-grid {
+            background-image: linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .neon-glow-primary { box-shadow: 0 0 15px rgba(37, 99, 235, 0.3); }
+        .neon-glow-secondary { box-shadow: 0 0 15px rgba(76, 215, 246, 0.2); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased cyber-grid">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="font-display-sm text-display-sm font-bold text-primary">VeltrixaFX</span>
+<div class="hidden md:flex gap-sm ml-xl">
+<a class="text-on-surface-variant font-medium hover:bg-surface-variant/10 transition-colors px-xs py-base" href="affiliate_dashboard.html">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="transaction_history_financial_reports.html">Reports</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-variant/10 transition-colors px-xs py-base" href="transaction_history_financial_reports.html">Transactions</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden lg:flex items-center bg-surface-container px-sm py-xs rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-secondary mr-xs" style="font-size: 18px;">sensors</span>
+<span class="font-label-caps text-label-caps text-secondary">Live Status: Active</span>
+</div>
+<div class="flex items-center gap-xs">
+<button class="p-xs text-on-surface-variant hover:bg-surface-variant/10 transition-colors" onclick="window.location.href='institutional_wallet_fund_management.html'"><span class="material-symbols-outlined">account_balance_wallet</span></button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-variant/10 transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-variant/10 transition-colors" onclick="window.location.href='institutional_profile_security_settings.html'"><span class="material-symbols-outlined">settings</span></button>
+<div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-xs border border-outline">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged male executive with a confident expression, wearing a sleek charcoal suit. The background is a blurred high-tech trading floor with soft blue and amber ambient lights. The photography style is high-contrast and polished, reflecting a high-stakes corporate environment with sharp focus and cinematic depth." src="assets/image_abc3451351.jpg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Side Navigation Anchor -->
+<aside class="fixed left-0 top-16 bottom-0 flex flex-col py-md bg-surface-container border-r border-outline-variant w-64 hidden md:flex">
+<div class="px-md mb-xl">
+<h2 class="font-headline-md text-headline-md text-primary">Veltrixa Terminal</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Institutional Grade</p>
+</div>
+<nav class="flex-1 px-sm space-y-xs">
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-150 rounded-lg" href="affiliate_dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-150 rounded-lg" href="transaction_history_financial_reports.html">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-caps text-label-caps">Transactions</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-secondary font-bold bg-secondary-container/10 border-r-2 border-secondary shadow-[0_0_15px_rgba(76,215,246,0.15)] rounded-lg" href="transaction_history_financial_reports.html">
+<span class="material-symbols-outlined">calculate</span>
+<span class="font-label-caps text-label-caps">Tax Reports</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-150 rounded-lg" href="transaction_history_financial_reports.html">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">Statements</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-150 rounded-lg" href="institutional_analytics_performance_dashboard.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-150 rounded-lg" href="institutional_profile_security_settings.html">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-caps text-label-caps">Risk Profile</span>
+</a>
+</nav>
+<div class="px-sm mt-auto space-y-xs border-t border-outline-variant pt-md">
+<button class="w-full bg-primary-container text-on-primary-container py-sm rounded-lg font-bold transition-all active:scale-95 mb-md" onclick="window.location.href='transaction_history_financial_reports.html'">Generate Report</button>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-white/5 rounded-lg" href="institutional_support_help_center.html">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+<a class="flex items-center gap-sm p-sm text-on-surface-variant hover:text-on-surface hover:bg-white/5 rounded-lg" href="secure_web_login.html">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-caps text-label-caps">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 mt-16 p-lg grid grid-cols-12 gap-lg max-w-[1600px] mx-auto">
+<!-- Header Section -->
+<div class="col-span-12 flex flex-col md:flex-row md:items-end justify-between gap-md mb-md">
+<div>
+<h1 class="font-display-sm text-display-sm text-on-surface font-bold">Transaction History &amp; Financial Reports</h1>
+<p class="font-body-md text-on-surface-variant">Track all financial activities and monitor institutional growth metrics.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-highest border border-outline-variant rounded hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+<span class="font-label-caps text-label-caps">Export PDF</span>
+</button>
+<button class="flex items-center gap-xs px-md py-sm bg-primary-container text-on-primary-container rounded hover:brightness-110 transition-all font-bold" onclick="window.location.href='transaction_history_financial_reports.html'">
+<span class="material-symbols-outlined">download</span>
+<span class="font-label-caps text-label-caps">Download CSV</span>
+</button>
+</div>
+</div>
+<!-- Financial Summary Cards -->
+<div class="col-span-12 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-md">
+<div class="glass-card p-md rounded-xl">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs uppercase">Total Deposits</p>
+<div class="flex items-baseline gap-xs">
+<h3 class="text-display-sm font-data-mono text-primary">$1,248,500</h3>
+</div>
+<div class="h-8 mt-md flex items-end gap-1">
+<div class="flex-1 bg-primary/20 h-[30%] rounded-sm"></div>
+<div class="flex-1 bg-primary/20 h-[50%] rounded-sm"></div>
+<div class="flex-1 bg-primary/20 h-[40%] rounded-sm"></div>
+<div class="flex-1 bg-primary/20 h-[70%] rounded-sm"></div>
+<div class="flex-1 bg-primary/20 h-[60%] rounded-sm"></div>
+<div class="flex-1 bg-primary/20 h-[90%] rounded-sm"></div>
