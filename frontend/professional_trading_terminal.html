@@ -286,3 +286,99 @@
 <span class="text-secondary font-data-mono text-sm">1.08422</span>
 </div>
 <div class="h-6 w-px bg-outline-variant/30"></div>
+<div class="flex gap-xs">
+<button class="text-xs px-xs py-1 hover:bg-surface-variant rounded transition-colors">Indicators</button>
+<button class="text-xs px-xs py-1 hover:bg-surface-variant rounded transition-colors">Alerts</button>
+<button class="text-xs px-xs py-1 hover:bg-surface-variant rounded transition-colors">Strategy</button>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-primary">fullscreen</span>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-primary">camera_alt</span>
+</div>
+</div>
+<!-- Chart Canvas Placeholder -->
+<div class="flex-1 w-full bg-[#0d111a] relative">
+<img alt="Professional Candlestick Trading Chart" class="w-full h-full object-cover opacity-60" data-alt="A highly detailed professional candlestick trading chart displayed on a dark high-tech terminal. The candles are colored in vibrant terminal green and deep financial red, showing precise price action. The background features a subtle dark blue grid and horizontal price levels. Overlayed are translucent technical indicator lines in cyan and purple, suggesting sophisticated algorithmic trading analysis." src="assets/image_5.jpg"/>
+<!-- Floating Order Panel Overlay -->
+<div class="absolute right-md top-md w-64 glass-panel p-md rounded-xl shadow-2xl border border-primary/20">
+<div class="flex justify-between items-center mb-md">
+<span class="font-bold text-sm">Quick Trade</span>
+<span class="text-xs text-on-surface-variant">Spread: 0.2</span>
+</div>
+<div class="grid grid-cols-2 gap-sm mb-md">
+<button class="bg-error/20 hover:bg-error/30 text-error border border-error/30 py-sm rounded flex flex-col items-center transition-all">
+<span class="font-bold">SELL</span>
+<span class="text-xs font-data-mono">1.08418</span>
+</button>
+<button class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/30 py-sm rounded flex flex-col items-center transition-all">
+<span class="font-bold">BUY</span>
+<span class="text-xs font-data-mono">1.08422</span>
+</button>
+</div>
+<div class="space-y-sm">
+<div>
+<label class="text-[10px] uppercase text-on-surface-variant font-bold">Lot Size</label>
+<input class="w-full bg-surface-container-highest border-outline-variant/30 rounded py-1 text-sm text-center font-data-mono" type="number" value="1.00"/>
+</div>
+<div class="grid grid-cols-2 gap-xs">
+<button class="text-[10px] border border-outline-variant/30 py-1 rounded">Stop Loss</button>
+<button class="text-[10px] border border-outline-variant/30 py-1 rounded">Take Profit</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Widgets -->
+<div class="hidden xl:flex xl:col-span-3 flex-col gap-md">
+<!-- AI Assistant Feed -->
+<div class="glass-panel rounded-xl p-md flex-1 flex flex-col border-l-2 border-l-primary">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-bold text-sm">AI Terminal Insights</h3>
+</div>
+<div class="flex-1 space-y-md overflow-y-auto scrollbar-hide">
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-primary px-1.5 py-0.5 bg-primary/10 rounded uppercase">Market Alert</span>
+<span class="text-[10px] text-on-surface-variant">2m ago</span>
+</div>
+<p class="text-xs text-on-surface">USD Inflation data suggests bearish pressure on EURUSD for next 4H. Buy limit @ 1.08200 recommended.</p>
+</div>
+<div class="h-px bg-outline-variant/10"></div>
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-secondary px-1.5 py-0.5 bg-secondary/10 rounded uppercase">Signal Sync</span>
+<span class="text-[10px] text-on-surface-variant">15m ago</span>
+</div>
+<p class="text-xs text-on-surface">Gold reaching RSI overbought territory on daily chart. Liquidity pool detected at $2,345.</p>
+</div>
+</div>
+</div>
+<!-- Market Sentiment -->
+<div class="glass-panel rounded-xl p-md h-40 border border-outline-variant/10">
+<h3 class="text-xs font-bold text-on-surface-variant uppercase mb-md">Fear &amp; Greed Index</h3>
+<div class="relative flex items-center justify-center">
+<svg class="w-32 h-16" viewbox="0 0 100 50">
+<path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#32343d" stroke-width="8"></path>
+<path d="M 10 50 A 40 40 0 0 1 70 15" fill="none" stroke="url(#sentiment-grad)" stroke-width="8"></path>
+<defs>
+<lineargradient id="sentiment-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#ffb4ab;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#4cd7f6;stop-opacity:1"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute bottom-0 text-center">
+<p class="text-xl font-bold font-data-mono">68</p>
+<p class="text-[10px] uppercase text-secondary font-bold">Greed</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Positions & AI Signals -->
+<div class="grid grid-cols-12 gap-md pb-md">
+<!-- Open Positions Table -->
+<div class="col-span-12 lg:col-span-8 glass-panel rounded-xl overflow-hidden">
+<div class="px-md py-sm border-b border-outline-variant/10 flex justify-between items-center">
