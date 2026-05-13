@@ -446,3 +446,119 @@
 <div class="w-12 h-12 rounded bg-secondary/10 flex items-center justify-center text-secondary">
 <span class="material-symbols-outlined">summarize</span>
 </div>
+<div class="flex-1 overflow-hidden">
+<p class="font-label-caps text-label-caps truncate">Q3 Quarterly Review</p>
+<button class="text-xs text-secondary font-bold hover:underline" onclick="window.location.href='transaction_history_financial_reports.html'">Download PDF</button>
+</div>
+</div>
+<div class="glass-card p-sm rounded-xl flex items-center gap-sm group">
+<div class="w-12 h-12 rounded bg-surface-variant flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-label-caps text-label-caps truncate">Full Archive</p>
+<button class="text-xs text-on-surface-variant font-bold hover:underline">Request Access</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Widgets -->
+<div class="col-span-12 lg:col-span-3 space-y-lg">
+<!-- Live Balance -->
+<div class="glass-card p-md rounded-xl bg-gradient-to-br from-primary-container/20 to-transparent">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs">Live Institutional Balance</p>
+<h2 class="text-display-sm font-data-mono text-white mb-md">$4,852,100.22</h2>
+<div class="space-y-sm">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Locked for Margin</span>
+<span class="text-on-surface">$240,000</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Available for Withdrawal</span>
+<span class="text-secondary">$4,612,100</span>
+</div>
+</div>
+<button class="w-full mt-lg py-sm bg-secondary text-on-secondary-container font-bold rounded neon-glow-secondary" onclick="window.location.href='institutional_wallet_fund_management.html'">Quick Deposit</button>
+</div>
+<!-- AI Financial Assistant -->
+<div class="glass-card p-md rounded-xl border border-secondary/30">
+<div class="flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<h4 class="font-headline-md text-headline-md text-secondary">Veltrix AI</h4>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg mb-md">
+<p class="text-xs italic text-on-surface-variant leading-relaxed">"Based on your Oct transactions, your profit consistency has improved by 4%. I suggest reviewing the EUR/USD volatility reports for next week."</p>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container border-outline-variant py-xs px-sm rounded text-xs" placeholder="Ask about reports..." type="text"/>
+<span class="material-symbols-outlined absolute right-xs top-1/2 -translate-y-1/2 text-secondary cursor-pointer">send</span>
+</div>
+</div>
+<!-- Currency Converter -->
+<div class="glass-card p-md rounded-xl">
+<h4 class="font-label-caps text-label-caps mb-md">Quick Converter</h4>
+<div class="space-y-sm">
+<div class="flex items-center gap-xs">
+<input class="flex-1 bg-surface-container border-outline-variant p-xs rounded text-sm font-data-mono" type="number" value="1.00"/>
+<select class="bg-surface-container border-outline-variant p-xs rounded text-xs">
+<option>BTC</option>
+<option>ETH</option>
+</select>
+</div>
+<div class="flex justify-center py-xs text-on-surface-variant">
+<span class="material-symbols-outlined">swap_vert</span>
+</div>
+<div class="flex items-center gap-xs">
+<input class="flex-1 bg-surface-container-high border-outline-variant p-xs rounded text-sm font-data-mono text-secondary" disabled="" type="text" value="34,250.00"/>
+<select class="bg-surface-container border-outline-variant p-xs rounded text-xs">
+<option>USD</option>
+<option>EUR</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Recent Activity Feed -->
+<div class="space-y-md">
+<h4 class="font-label-caps text-label-caps text-on-surface px-xs">System Activity</h4>
+<div class="space-y-sm">
+<div class="flex gap-sm p-xs border-l-2 border-secondary bg-secondary/5">
+<div class="mt-1"><span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span></div>
+<div>
+<p class="text-[12px] font-bold">Deposit Approved</p>
+<p class="text-[10px] text-on-surface-variant">10,000 USDT Confirmed</p>
+</div>
+</div>
+<div class="flex gap-sm p-xs border-l-2 border-primary">
+<div class="mt-1"><span class="material-symbols-outlined text-[16px] text-primary">bolt</span></div>
+<div>
+<p class="text-[12px] font-bold">Trade Executed</p>
+<p class="text-[10px] text-on-surface-variant">EUR/USD Buy @ 1.0542</p>
+</div>
+</div>
+<div class="flex gap-sm p-xs border-l-2 border-tertiary">
+<div class="mt-1"><span class="material-symbols-outlined text-[16px] text-tertiary">warning</span></div>
+<div>
+<p class="text-[12px] font-bold">Tax Est. Update</p>
+<p class="text-[10px] text-on-surface-variant">Projected Q4 tax: $12k</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Identity -->
+<footer class="md:ml-64 p-lg border-t border-outline-variant bg-surface-container-lowest">
+<div class="flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-primary">VeltrixaFX</span>
+<span class="text-xs text-on-surface-variant">© 2023 Institutional Trading Systems. All rights reserved.</span>
+</div>
+<div class="flex gap-md">
+<a class="text-xs text-on-surface-variant hover:text-secondary" href="institutional_profile_security_settings.html">Security Protocols</a>
+<a class="text-xs text-on-surface-variant hover:text-secondary" href="institutional_profile_security_settings.html">API Documentation</a>
+<a class="text-xs text-on-surface-variant hover:text-secondary" href="institutional_profile_security_settings.html">Compliance Registry</a>
+</div>
+</div>
+</footer>
+</body></html>
