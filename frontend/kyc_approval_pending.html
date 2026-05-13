@@ -114,3 +114,61 @@
         }
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+        .neon-glow-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(76, 215, 246, 0.08) 0%, rgba(11, 15, 26, 0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .bg-overlay-image {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            opacity: 0.15;
+            filter: blur(8px);
+        }
+        .floating-particles {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden min-h-screen">
+<div class="bg-overlay-image">
+<img class="w-full h-full object-cover" data-alt="A professional institutional trading dashboard with complex financial charts, candlesticks, and portfolio data visualizations. The interface is dark-themed with sleek glassmorphic modules, glowing cyan and royal blue accents, and high-density data metrics. The scene is slightly out of focus to create a sophisticated, blurred background effect for a premium fintech application." src="assets/image_7e2ad163b7.jpg"/>
+</div>
+<div class="neon-glow-bg"></div>
+<div class="floating-particles"></div>
+<!-- TopNavBar -->
+<nav class="flex justify-between items-center px-lg w-full fixed top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/30 h-16 shadow-sm">
+<div class="flex items-center gap-md">
+<span class="font-display-sm text-display-sm font-bold text-primary">VeltrixaFX</span>
+<div class="hidden md:flex gap-sm ml-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" href="global_market_overview_terminal.html">Markets</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" href="professional_trading_terminal.html">Terminal</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" href="institutional_analytics_performance_dashboard.html">Analytics</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" href="institutional_profile_security_settings.html">Security</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden lg:flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-white/5 p-xs rounded-full transition-all" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-white/5 p-xs rounded-full transition-all" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-white/5 p-xs rounded-full transition-all" data-icon="verified_user">verified_user</span>
+</div>
+<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-md py-xs rounded-lg active:scale-95 transition-transform duration-100" onclick="window.location.href='professional_trading_terminal.html'">Trade Now</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden">
+<img alt="Institutional Trader Profile" class="w-full h-full object-cover" src="assets/image_9811d01b80.jpg"/>
+</div>
+</div>
