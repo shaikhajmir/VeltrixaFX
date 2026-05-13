@@ -222,3 +222,115 @@
 <div class="flex-1 bg-primary/20 h-[70%] rounded-sm"></div>
 <div class="flex-1 bg-primary/20 h-[60%] rounded-sm"></div>
 <div class="flex-1 bg-primary/20 h-[90%] rounded-sm"></div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs uppercase">Total Withdrawals</p>
+<h3 class="text-display-sm font-data-mono text-on-surface">$452,100</h3>
+<p class="text-xs text-error mt-sm flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">arrow_downward</span> 2.4% vs last month</p>
+</div>
+<div class="glass-card p-md rounded-xl border-l-4 border-l-secondary">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs uppercase">Total Profit</p>
+<h3 class="text-display-sm font-data-mono text-secondary">+$82,410.50</h3>
+<p class="text-xs text-secondary mt-sm flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">trending_up</span> 12.8% Growth</p>
+</div>
+<div class="glass-card p-md rounded-xl">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs uppercase">Monthly ROI</p>
+<h3 class="text-display-sm font-data-mono text-on-surface">14.2%</h3>
+<div class="w-full bg-surface-variant h-1 rounded-full mt-md overflow-hidden">
+<div class="bg-secondary h-full w-[71%]"></div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl bg-surface-container-high">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-xs uppercase">Pending Trades</p>
+<h3 class="text-display-sm font-data-mono text-tertiary">14</h3>
+<p class="text-xs text-on-surface-variant mt-sm">Processing in real-time</p>
+</div>
+</div>
+<!-- Filters Bar -->
+<div class="col-span-12 glass-card p-sm rounded-xl flex flex-wrap items-center gap-md">
+<div class="flex items-center bg-surface-container px-sm py-xs border border-outline-variant rounded">
+<span class="material-symbols-outlined text-on-surface-variant mr-xs">calendar_today</span>
+<span class="font-body-sm text-body-sm">Oct 1, 2023 - Oct 31, 2023</span>
+</div>
+<select class="bg-surface-container border-outline-variant text-on-surface-variant rounded py-xs px-md font-body-sm">
+<option>All Types</option>
+<option>Deposit</option>
+<option>Withdrawal</option>
+<option>Trade</option>
+</select>
+<select class="bg-surface-container border-outline-variant text-on-surface-variant rounded py-xs px-md font-body-sm">
+<option>All Assets</option>
+<option>EUR/USD</option>
+<option>BTC/USDT</option>
+<option>Gold (XAU)</option>
+</select>
+<select class="bg-surface-container border-outline-variant text-on-surface-variant rounded py-xs px-md font-body-sm">
+<option>All Status</option>
+<option>Completed</option>
+<option>Pending</option>
+<option>Failed</option>
+</select>
+<div class="flex-1 min-w-[200px] relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container border-outline-variant pl-xl pr-md py-xs rounded font-body-sm focus:ring-secondary focus:border-secondary transition-all" placeholder="Search Transaction ID..." type="text"/>
+</div>
+</div>
+<!-- Main Ledger & Analytics -->
+<div class="col-span-12 lg:col-span-9 space-y-lg">
+<!-- Transaction Ledger Table -->
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="px-md py-sm border-b border-outline-variant flex justify-between items-center bg-surface-variant/20">
+<h4 class="font-label-caps text-label-caps text-on-surface">Financial Ledger</h4>
+<span class="text-xs text-on-surface-variant">Showing 25 of 1,240 results</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-caps text-[11px] uppercase tracking-wider">
+<th class="p-md font-bold">Transaction ID</th>
+<th class="p-md font-bold">Type</th>
+<th class="p-md font-bold">Asset/Method</th>
+<th class="p-md font-bold">Amount</th>
+<th class="p-md font-bold text-center">Status</th>
+<th class="p-md font-bold text-right">Timestamp</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30 font-data-mono text-sm">
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="p-md text-secondary">#VTX-992140</td>
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">currency_exchange</span>
+<span>Trade Execution</span>
+</div>
+</td>
+<td class="p-md text-on-surface-variant">EUR/USD (Short)</td>
+<td class="p-md font-bold text-secondary">+$1,420.00</td>
+<td class="p-md text-center">
+<span class="px-sm py-[2px] bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-[10px] font-bold">COMPLETED</span>
+</td>
+<td class="p-md text-right text-on-surface-variant">2023-10-31 14:22:10</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="p-md text-secondary">#VTX-992138</td>
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary text-[18px]">account_balance</span>
+<span>Withdrawal</span>
+</div>
+</td>
+<td class="p-md text-on-surface-variant">Bank Transfer</td>
+<td class="p-md font-bold text-error">-$5,000.00</td>
+<td class="p-md text-center">
+<span class="px-sm py-[2px] bg-surface-variant text-on-surface-variant border border-outline-variant rounded-full text-[10px] font-bold">PENDING</span>
+</td>
+<td class="p-md text-right text-on-surface-variant">2023-10-31 12:45:01</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="p-md text-secondary">#VTX-992135</td>
+<td class="p-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">add_circle</span>
+<span>Deposit</span>
+</div>
