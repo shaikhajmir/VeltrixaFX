@@ -382,3 +382,103 @@
 <!-- Open Positions Table -->
 <div class="col-span-12 lg:col-span-8 glass-panel rounded-xl overflow-hidden">
 <div class="px-md py-sm border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="font-bold text-sm">Open Positions (3)</h3>
+<button class="text-xs text-primary hover:underline">Close All</button>
+</div>
+<table class="w-full text-sm">
+<thead class="bg-surface-container-low text-on-surface-variant text-[10px] uppercase font-bold">
+<tr>
+<th class="px-md py-sm text-left">Asset</th>
+<th class="px-md py-sm text-left">Type</th>
+<th class="px-md py-sm text-right">Entry</th>
+<th class="px-md py-sm text-right">Current</th>
+<th class="px-md py-sm text-right">P&amp;L</th>
+<th class="px-md py-sm text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-md py-sm font-bold">EURUSD</td>
+<td class="px-md py-sm"><span class="text-secondary">BUY 1.00</span></td>
+<td class="px-md py-sm text-right font-data-mono">1.08210</td>
+<td class="px-md py-sm text-right font-data-mono">1.08422</td>
+<td class="px-md py-sm text-right font-data-mono text-secondary">+$212.00</td>
+<td class="px-md py-sm text-center">
+<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-error">close</button>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-md py-sm font-bold">XAUUSD</td>
+<td class="px-md py-sm"><span class="text-secondary">BUY 0.50</span></td>
+<td class="px-md py-sm text-right font-data-mono">2315.40</td>
+<td class="px-md py-sm text-right font-data-mono">2321.45</td>
+<td class="px-md py-sm text-right font-data-mono text-secondary">+$302.50</td>
+<td class="px-md py-sm text-center">
+<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-error">close</button>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-md py-sm font-bold">BTCUSD</td>
+<td class="px-md py-sm"><span class="text-error">SELL 0.10</span></td>
+<td class="px-md py-sm text-right font-data-mono">65,100.0</td>
+<td class="px-md py-sm text-right font-data-mono">64,218.4</td>
+<td class="px-md py-sm text-right font-data-mono text-secondary">+$88.16</td>
+<td class="px-md py-sm text-center">
+<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-error">close</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- AI Signals Feed -->
+<div class="col-span-12 lg:col-span-4 glass-panel rounded-xl flex flex-col">
+<div class="px-md py-sm border-b border-outline-variant/10">
+<h3 class="font-bold text-sm">AI Pulse Signals</h3>
+</div>
+<div class="p-md space-y-md">
+<div class="flex items-center gap-md">
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold">GBP/JPY</span>
+<span class="text-[10px] text-secondary font-bold">94% Confidence</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[94%]"></div>
+</div>
+</div>
+<button class="bg-secondary text-on-secondary text-xs font-bold px-sm py-1.5 rounded">SELL</button>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold">AUD/USD</span>
+<span class="text-[10px] text-on-surface-variant font-bold">72% Confidence</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[72%]"></div>
+</div>
+</div>
+<button class="bg-primary text-on-primary text-xs font-bold px-sm py-1.5 rounded">BUY</button>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold">ETH/USD</span>
+<span class="text-[10px] text-on-surface-variant font-bold">61% Confidence</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[61%]"></div>
+</div>
+</div>
+<button class="bg-primary text-on-primary text-xs font-bold px-sm py-1.5 rounded opacity-50">BUY</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-md right-md bg-secondary text-on-secondary p-md rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all z-50 flex items-center justify-center" onclick="window.location.href='institutional_profile_security_settings.html'">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+</body></html>
