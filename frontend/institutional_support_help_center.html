@@ -262,3 +262,91 @@
 <button class="font-label-caps text-label-caps text-primary uppercase border border-primary/20 px-sm py-xs rounded hover:bg-primary/5" onclick="window.location.href='transaction_history_financial_reports.html'">View History</button>
 </div>
 <div class="glass-card rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-white/5 border-b border-white/10">
+<tr>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Ticket ID</th>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Subject</th>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Status</th>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Priority</th>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Agent</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5 font-data-mono text-data-mono">
+<tr class="hover:bg-white/[0.03] transition-colors">
+<td class="p-md text-primary">#VX-88912</td>
+<td class="p-md text-on-surface">API Latency on JPY/USD pairs</td>
+<td class="p-md">
+<span class="px-xs py-0.5 rounded text-[10px] bg-secondary-container/20 text-secondary border border-secondary/30">OPEN</span>
+</td>
+<td class="p-md">
+<span class="flex items-center gap-xs text-error">
+<span class="w-2 h-2 rounded-full bg-error"></span> HIGH
+                                            </span>
+</td>
+<td class="p-md flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-[10px]">AV</div>
+                                            Alex V.
+                                        </td>
+</tr>
+<tr class="hover:bg-white/[0.03] transition-colors">
+<td class="p-md text-primary">#VX-88744</td>
+<td class="p-md text-on-surface">Tier 3 Verification Status</td>
+<td class="p-md">
+<span class="px-xs py-0.5 rounded text-[10px] bg-outline/10 text-outline border border-outline/20">RESOLVED</span>
+</td>
+<td class="p-md">
+<span class="flex items-center gap-xs text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-outline"></span> MEDIUM
+                                            </span>
+</td>
+<td class="p-md flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-[10px]">SM</div>
+                                            Sarah M.
+                                        </td>
+</tr>
+<tr class="hover:bg-white/[0.03] transition-colors">
+<td class="p-md text-primary">#VX-88690</td>
+<td class="p-md text-on-surface">Smart Contract Execution Error</td>
+<td class="p-md">
+<span class="px-xs py-0.5 rounded text-[10px] bg-secondary-container/20 text-secondary border border-secondary/30">OPEN</span>
+</td>
+<td class="p-md">
+<span class="flex items-center gap-xs text-error">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span> CRITICAL
+                                            </span>
+</td>
+<td class="p-md flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-[10px]">JD</div>
+                                            John D.
+                                        </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- AI Support Terminal -->
+<div class="lg:col-span-1 flex flex-col">
+<div class="glass-card rounded-xl overflow-hidden flex flex-col h-[400px] border-l-2 border-primary">
+<div class="p-md bg-white/5 border-b border-white/10 flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-headline-md text-headline-md text-sm uppercase tracking-widest text-on-surface">Veltrixa AI</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary neon-glow-secondary"></span>
+</div>
+<div class="flex-1 p-md overflow-y-auto space-y-md font-body-sm text-body-sm">
+<div class="bg-primary/10 border border-primary/20 p-sm rounded-lg self-start max-w-[85%]">
+                                    Hello, Terminal node 4.2. How can I assist with your liquidity management or account parameters today?
+                                </div>
+<div class="bg-white/5 p-sm rounded-lg self-end max-w-[85%] ml-auto text-right">
+                                    Explain the margin requirements for high-volatility pairs.
+                                </div>
+<div class="bg-primary/10 border border-primary/20 p-sm rounded-lg self-start max-w-[85%]">
+                                    For high-volatility assets, our Risk Manager module adjusts margins dynamically. Currently, BTC/USD requires a 5% maintenance margin...
+                                </div>
+</div>
+<div class="p-md border-t border-white/10 bg-background/50">
+<div class="relative">
+<input class="w-full bg-background/50 border border-outline-variant rounded-lg px-md py-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-data-mono text-sm" placeholder="Type natural language query..." type="text"/>
+<button class="absolute right-2 top-1.5 p-xs text-primary">
