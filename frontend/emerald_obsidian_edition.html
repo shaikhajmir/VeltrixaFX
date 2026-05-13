@@ -76,3 +76,81 @@
                 "base": "8px",
                 "margin-desktop": "64px",
                 "sm": "12px",
+                "xs": "4px"
+        },
+        "fontFamily": {
+                "headline-md": ["Hanken Grotesk"],
+                "body-md": ["Hanken Grotesk"],
+                "label-sm": ["Hanken Grotesk"],
+                "display-lg-mobile": ["Hanken Grotesk"],
+                "label-mono": ["JetBrains Mono"],
+                "body-lg": ["Hanken Grotesk"],
+                "display-lg": ["Hanken Grotesk"]
+        },
+        "fontSize": {
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "label-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+        body { background-color: #05070a; font-family: 'Hanken Grotesk', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .financial-grid {
+            background-image: linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/10">
+<div class="flex justify-between items-center h-[64px] px-lg max-w-[1440px] mx-auto w-full">
+<div class="font-display-lg text-[24px] font-bold tracking-tight text-primary">VeltrixaFX</div>
+<nav class="hidden md:flex items-center space-x-md">
+<a class="text-primary border-b-2 border-primary pb-1 font-bold text-label-sm" href="emerald_obsidian_edition.html">Home</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface text-label-sm transition-all duration-150" href="global_market_overview_terminal.html">Markets</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface text-label-sm transition-all duration-150" href="professional_trading_terminal.html">Platform</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface text-label-sm transition-all duration-150" href="copy_trading.html">Copy Trading</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface text-label-sm transition-all duration-150" href="institutional_support_help_center.html">Academy</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface text-label-sm transition-all duration-150" href="institutional_support_help_center.html">Contact</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="text-on-surface text-label-sm hover:opacity-80 transition-opacity" onclick="window.location.href='secure_web_login.html'">Login</button>
+<button class="bg-primary text-on-primary font-bold text-label-sm px-md py-2 rounded active:scale-[0.98] transition-transform" onclick="window.location.href='secure_web_registration.html'">Start Trading</button>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-xl overflow-hidden">
+<div class="absolute inset-0 financial-grid -z-10 opacity-30"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#05070a]/80 to-[#05070a] -z-10"></div>
+<!-- Background Map Image Overlay -->
+<div class="absolute inset-0 opacity-10 mix-blend-overlay -z-20">
+<img alt="Global Network" class="w-full h-full object-cover" data-alt="A sophisticated abstract world map made of glowing blue data points and interconnected lines against a deep black background. The visual style is highly technical and futuristic, representing a global financial network. Cyan particles float around the continent shapes with soft lens flare effects and a high-tech financial grid overlay." src="assets/image_1.jpg"/>
+</div>
+<div class="max-w-[1440px] mx-auto px-lg w-full grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<!-- Hero Content -->
+<div class="space-y-md">
+<div class="inline-flex items-center gap-xs px-sm py-1 rounded-full bg-primary/10 border border-primary/20 text-primary">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span class="font-bold text-label-sm">AI-Powered Precision</span>
+</div>
+<h1 class="font-display-lg text-display-lg max-w-xl">
+                        Trade Global Markets <span class="text-primary">Without Limits</span>
