@@ -105,3 +105,110 @@
                         "base": "4px"
                     },
                     "fontFamily": {
+                        "label-caps": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "body-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "display-sm": ["Geist"],
+                        "data-mono": ["JetBrains Mono"],
+                        "body-sm": ["Geist"],
+                        "headline-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-sm": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="financial-grid min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm docked full-width top-0 z-50 flex justify-between items-center w-full px-lg h-16 fixed">
+<div class="flex items-center space-x-md">
+<span class="font-headline-md text-headline-md font-bold tracking-tighter text-primary">VeltrixaFX</span>
+<nav class="hidden md:flex items-center space-x-md ml-xl">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-150 cursor-pointer active:scale-95" href="global_market_overview_terminal.html">Markets</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 cursor-pointer" href="institutional_analytics_performance_dashboard.html">Analytics</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-150 cursor-pointer active:scale-95" href="institutional_wallet_fund_management.html">Portfolio</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-150 cursor-pointer active:scale-95" href="professional_trading_terminal.html">Terminal</a>
+</nav>
+</div>
+<div class="flex items-center space-x-sm">
+<button class="flex items-center px-sm py-xs bg-primary text-on-primary rounded font-label-caps text-label-caps hover:bg-primary/90 transition-all cursor-pointer" onclick="window.location.href='transaction_history_financial_reports.html'">
+                Export Report
+            </button>
+<div class="flex space-x-xs text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">account_balance_wallet</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">account_circle</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low/90 backdrop-blur-lg border-r border-outline-variant/30 shadow-lg fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col z-40 hidden md:flex">
+<div class="p-md flex items-center space-x-sm border-b border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional male financial trader with a focused expression, wearing a tailored charcoal suit against a softly blurred background of multi-screen trading monitors showing complex candle-stick charts and market data. High-key corporate lighting, shallow depth of field, cool blue color grading, ultra-realistic portrait photography for a premium fintech interface." src="assets/image_b533678c15.jpg"/>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary">VeltrixaFX</p>
+<p class="text-xs text-on-surface-variant/70">Institutional Pro</p>
+</div>
+</div>
+<nav class="flex-1 py-md">
+<div class="group flex items-center space-x-4 px-sm py-md text-on-surface-variant/70 hover:text-on-surface hover:bg-white/5 transition-all duration-150 cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</div>
+<div class="group flex items-center space-x-4 px-sm py-md bg-primary-container/20 text-primary border-r-4 border-primary transition-all duration-150 cursor-pointer">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</div>
+<div class="group flex items-center space-x-4 px-sm py-md text-on-surface-variant/70 hover:text-on-surface hover:bg-white/5 transition-all duration-150 cursor-pointer">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-caps text-label-caps">Risk</span>
+</div>
+<div class="group flex items-center space-x-4 px-sm py-md text-on-surface-variant/70 hover:text-on-surface hover:bg-white/5 transition-all duration-150 cursor-pointer">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="font-label-caps text-label-caps">ROI Reports</span>
+</div>
+</nav>
+<div class="p-md">
+<button class="w-full py-sm bg-gradient-to-r from-primary to-secondary text-on-primary font-label-caps text-label-caps rounded shadow-md hover:opacity-90 transition-opacity" onclick="window.location.href='institutional_wallet_fund_management.html'">
+                Upgrade to AI+
+            </button>
+</div>
+<div class="border-t border-outline-variant/10 py-sm">
+<div class="group flex items-center space-x-4 px-sm py-xs text-on-surface-variant/70 hover:text-on-surface hover:bg-white/5 transition-all duration-150 cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</div>
+<div class="group flex items-center space-x-4 px-sm py-xs text-on-surface-variant/70 hover:text-on-surface hover:bg-white/5 transition-all duration-150 cursor-pointer">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 pt-20 p-md lg:p-lg space-y-lg">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end space-y-md md:space-y-0">
+<div>
+<h1 class="font-display-sm text-display-sm text-on-surface">Trading Analytics &amp; Performance</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Monitor portfolio growth, trading performance, risk exposure, and advanced financial analytics.</p>
+</div>
+<div class="flex space-x-sm">
+<div class="glass-panel px-sm py-xs rounded flex items-center space-x-xs">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<span class="font-label-caps text-label-caps">Oct 1 - Oct 31, 2023</span>
+</div>
+</div>
+</section>
