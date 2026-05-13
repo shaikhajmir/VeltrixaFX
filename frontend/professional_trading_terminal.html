@@ -190,3 +190,99 @@
 </div>
 </aside>
 <!-- Main Content Canvas -->
+<main class="ml-64 mt-16 p-md h-[calc(100vh-64px)] overflow-y-auto trading-grid">
+<div class="max-w-[1600px] mx-auto space-y-md">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-sm">
+<div>
+<h1 class="font-display-sm text-display-sm font-bold text-on-surface">Welcome Back, Trader 👋</h1>
+<p class="text-on-surface-variant flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                        Markets are currently <span class="text-secondary font-bold">VOLATILE</span> • 12 Global pairs showing high AI confidence.
+                    </p>
+</div>
+<div class="flex gap-sm">
+<div class="bg-surface-container-high px-md py-sm rounded-lg border border-outline-variant/10 text-right">
+<p class="text-xs text-on-surface-variant font-label-caps uppercase tracking-tighter">Est. Margin Level</p>
+<p class="font-data-mono text-secondary font-bold">428.4%</p>
+</div>
+</div>
+</div>
+<!-- Top Grid: Portfolio & Market Quick View -->
+<div class="grid grid-cols-12 gap-md">
+<!-- Portfolio Card -->
+<div class="col-span-12 lg:col-span-5 glass-panel p-md rounded-xl flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-xs">Available Balance</p>
+<h2 class="font-display-sm text-display-sm font-bold text-on-surface">$12,540.25</h2>
+<div class="flex items-center gap-xs mt-xs">
+<span class="bg-secondary/10 text-secondary px-xs py-0.5 rounded text-xs font-bold">+2.45%</span>
+<span class="text-on-surface-variant text-xs">+$307.24 Today</span>
+</div>
+</div>
+<div class="flex gap-xs">
+<button class="bg-surface-container-highest px-sm py-xs rounded font-label-caps text-xs hover:bg-surface-bright transition-colors" onclick="window.location.href='institutional_wallet_fund_management.html'">Deposit</button>
+<button class="bg-surface-container-highest px-sm py-xs rounded font-label-caps text-xs hover:bg-surface-bright transition-colors" onclick="window.location.href='institutional_wallet_fund_management.html'">Withdraw</button>
+</div>
+</div>
+<!-- Mock Growth Sparkline -->
+<div class="mt-md h-24 w-full relative">
+<img alt="Portfolio Growth Chart" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-screen rounded" data-alt="A minimalist digital visualization of a glowing neon cyan line graph showing an upward growth trend against a deep navy blue, grid-textured background. The aesthetic is clean and institutional, featuring a sharp, 1px-stroke line that represents high-frequency financial data. The lighting is futuristic, with a subtle glow around the line graph." src="assets/image_6.jpg"/>
+<div class="absolute inset-0 flex items-end">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 24">
+<path d="M0 20 Q 10 18, 20 22 T 40 15 T 60 18 T 80 10 T 100 5" fill="none" stroke="#4cd7f6" stroke-width="0.5"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Live Market Grid -->
+<div class="col-span-12 lg:col-span-7 grid grid-cols-3 gap-sm">
+<!-- EUR/USD -->
+<div class="glass-panel p-sm rounded-xl border-l-2 border-l-secondary">
+<div class="flex justify-between items-center mb-base">
+<span class="font-bold text-sm">EUR / USD</span>
+<span class="text-secondary text-xs font-data-mono">+0.12%</span>
+</div>
+<p class="font-data-mono text-lg font-bold">1.08422</p>
+<div class="mt-xs h-8 opacity-40">
+<svg class="w-full h-full" viewbox="0 0 100 20"><path d="M0 15 L10 12 L20 18 L30 14 L40 16 L50 10 L60 12 L70 5 L80 8 L90 2 L100 5" fill="none" stroke="#4cd7f6" stroke-width="1"></path></svg>
+</div>
+</div>
+<!-- BTC/USD -->
+<div class="glass-panel p-sm rounded-xl border-l-2 border-l-error">
+<div class="flex justify-between items-center mb-base">
+<span class="font-bold text-sm">BTC / USD</span>
+<span class="text-error text-xs font-data-mono">-1.84%</span>
+</div>
+<p class="font-data-mono text-lg font-bold">64,218.4</p>
+<div class="mt-xs h-8 opacity-40">
+<svg class="w-full h-full" viewbox="0 0 100 20"><path d="M0 5 L10 8 L20 4 L30 10 L40 8 L50 15 L60 12 L70 18 L80 14 L90 20 L100 16" fill="none" stroke="#ffb4ab" stroke-width="1"></path></svg>
+</div>
+</div>
+<!-- XAU/USD -->
+<div class="glass-panel p-sm rounded-xl border-l-2 border-l-secondary">
+<div class="flex justify-between items-center mb-base">
+<span class="font-bold text-sm">Gold (XAU)</span>
+<span class="text-secondary text-xs font-data-mono">+0.44%</span>
+</div>
+<p class="font-data-mono text-lg font-bold">2,321.45</p>
+<div class="mt-xs h-8 opacity-40">
+<svg class="w-full h-full" viewbox="0 0 100 20"><path d="M0 12 L20 15 L40 10 L60 8 L80 5 L100 2" fill="none" stroke="#4cd7f6" stroke-width="1"></path></svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Section: Terminal & Widgets -->
+<div class="grid grid-cols-12 gap-md h-[500px]">
+<!-- Main Trading Terminal -->
+<div class="col-span-12 xl:col-span-9 glass-panel rounded-xl flex flex-col relative overflow-hidden">
+<!-- Chart Header -->
+<div class="flex items-center justify-between px-md py-sm bg-surface-container-low/80 border-b border-outline-variant/10">
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm">
+<span class="font-bold text-lg">EURUSD</span>
+<span class="text-xs px-xs bg-surface-variant rounded">1H</span>
+<span class="text-secondary font-data-mono text-sm">1.08422</span>
+</div>
+<div class="h-6 w-px bg-outline-variant/30"></div>
