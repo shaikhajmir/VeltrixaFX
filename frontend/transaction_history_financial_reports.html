@@ -1,0 +1,112 @@
+<!-- VeltrixaFX | Transaction History & Financial Reports -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VeltrixaFX | Transaction History &amp; Financial Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#bc4800",
+                        "surface-tint": "#b4c5ff",
+                        "surface-container-lowest": "#0c0e16",
+                        "surface": "#11131b",
+                        "on-primary": "#002a78",
+                        "inverse-primary": "#0053db",
+                        "outline-variant": "#434655",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-surface": "#e1e2ed",
+                        "secondary-container": "#03b5d3",
+                        "on-secondary-container": "#00424e",
+                        "surface-variant": "#32343d",
+                        "surface-bright": "#373942",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-error": "#690005",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-fixed": "#001f26",
+                        "on-background": "#e1e2ed",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "primary": "#b4c5ff",
+                        "on-primary-fixed": "#00174b",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-high": "#282a32",
+                        "error": "#ffb4ab",
+                        "outline": "#8d90a0",
+                        "tertiary-fixed": "#ffdbcd",
+                        "tertiary": "#ffb596",
+                        "inverse-surface": "#e1e2ed",
+                        "surface-container": "#1d1f27",
+                        "secondary-fixed": "#acedff",
+                        "surface-container-highest": "#32343d",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-surface-variant": "#c3c6d7",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-dim": "#11131b",
+                        "inverse-on-surface": "#2e3039",
+                        "primary-container": "#2563eb",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#581e00",
+                        "background": "#11131b",
+                        "secondary": "#4cd7f6",
+                        "surface-container-low": "#191b23",
+                        "on-secondary": "#003640",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-primary-fixed-variant": "#003ea8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "md": "24px",
+                        "container-max": "1440px",
+                        "sm": "16px",
+                        "lg": "40px",
+                        "gutter": "20px",
+                        "xs": "8px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-md": ["Geist"],
+                        "display-sm": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "body-sm": ["Geist"],
+                        "body-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "label-caps": ["Geist"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-sm": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #0B0F1A; }
+        .glass-card {
+            background: rgba(18, 24, 38, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
