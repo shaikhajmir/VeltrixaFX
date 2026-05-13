@@ -92,3 +92,97 @@
               "spacing": {
                       "xs": "8px",
                       "sm": "16px",
+                      "md": "24px",
+                      "xl": "64px",
+                      "container-max": "1440px",
+                      "base": "4px",
+                      "lg": "40px",
+                      "gutter": "20px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Geist"],
+                      "headline-md": ["Geist"],
+                      "data-mono": ["JetBrains Mono"],
+                      "label-caps": ["Geist"],
+                      "display-sm": ["Geist"],
+                      "display-lg": ["Geist"],
+                      "body-md": ["Geist"],
+                      "body-sm": ["Geist"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "display-sm": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface/90 dark:bg-surface/90 backdrop-blur-xl border-b border-outline-variant/30 shadow-[0_4px_20px_rgba(0,0,0,0.4)] docked full-width top-0 z-50 flex justify-between items-center w-full px-lg h-16">
+<div class="flex items-center gap-md">
+<h1 class="font-display-sm text-display-sm font-bold tracking-tight text-primary dark:text-primary">VeltrixaFX</h1>
+<div class="hidden md:flex items-center bg-surface-container-low px-sm py-xs rounded border border-outline-variant/20 gap-xs">
+<span class="material-symbols-outlined text-outline text-body-md" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-64 text-on-surface placeholder:text-outline/50" placeholder="Search markets, assets..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary transition-all duration-150 active:scale-95" data-icon="monitoring">monitoring</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary transition-all duration-150 active:scale-95" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-secondary transition-all duration-150 active:scale-95" data-icon="settings" onclick="window.location.href='institutional_profile_security_settings.html'">settings</button>
+</div>
+<div class="h-8 w-8 rounded-full bg-secondary-container/20 border border-secondary/30 overflow-hidden">
+<img alt="Professional Trader Profile" class="w-full h-full object-cover" data-alt="A hyper-realistic 3D avatar of a professional male trader with a sharp jawline and focused expression, wearing a sleek black high-tech turtleneck. The lighting is dramatic and cinematic, featuring cyan and royal blue rim lighting against a deep charcoal background. The aesthetic is ultra-modern fintech with a clean, digital sculpture quality." src="assets/image_8696ac26dd.jpg"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface-container dark:bg-surface-container h-screen w-64 fixed left-0 top-0 flex flex-col border-r border-outline-variant/20 pt-20 pb-md px-xs gap-xs">
+<div class="px-md mb-md">
+<p class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Terminal</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-70">v4.2.0-Alpha</p>
+</div>
+<nav class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant opacity-70 hover:bg-surface-container-high hover:text-on-surface transition-colors active:translate-x-1" href="affiliate_dashboard.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant opacity-70 hover:bg-surface-container-high hover:text-on-surface transition-colors active:translate-x-1" href="global_market_overview_terminal.html">
+<span class="material-symbols-outlined" data-icon="show_chart">show_chart</span>
+<span class="font-label-caps text-label-caps">Markets</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant opacity-70 hover:bg-surface-container-high hover:text-on-surface transition-colors active:translate-x-1" href="professional_trading_terminal.html">
+<span class="material-symbols-outlined" data-icon="swap_horiz">swap_horiz</span>
+<span class="font-label-caps text-label-caps">Trade</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant opacity-70 hover:bg-surface-container-high hover:text-on-surface transition-colors active:translate-x-1" href="institutional_wallet_fund_management.html">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps">Wallet</span>
+</a>
+<a class="flex items-center gap-sm px-md py-sm bg-secondary-container/10 text-secondary border-r-2 border-secondary shadow-[0_0_15px_rgba(76,215,246,0.15)] transition-colors active:translate-x-1" href="institutional_profile_security_settings.html">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<div class="px-sm mt-auto">
+<button class="w-full bg-primary py-sm rounded-lg font-label-caps text-label-caps text-on-primary hover:bg-primary-container transition-all active:scale-95 shadow-lg shadow-primary/20" onclick="window.location.href='institutional_wallet_fund_management.html'">
+                    Deposit Funds
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 mr-80 overflow-y-auto p-lg space-y-md">
+<!-- Profile Header -->
+<section class="glass-card rounded-xl p-md flex items-center gap-lg relative overflow-hidden">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-secondary/10 blur-3xl rounded-full"></div>
+<div class="relative">
