@@ -289,3 +289,100 @@
 <td class="p-sm text-right">50,000 EUR</td>
 <td class="p-sm text-right">1.0824</td>
 <td class="p-sm text-right">1.0819</td>
+<td class="p-sm text-right text-error">-$25.00 (-0.8%)</td>
+<td class="p-sm text-right"><span class="material-symbols-outlined text-sm cursor-pointer hover:text-error">close</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Execution & Order Book -->
+<div class="w-80 flex flex-col gap-base m-base">
+<!-- Order Execution -->
+<div class="glass-panel rounded-lg border border-outline-variant p-md">
+<div class="flex gap-base mb-md bg-surface-container-highest p-[2px] rounded">
+<button class="flex-1 py-xs text-xs font-label-caps bg-secondary text-on-secondary rounded" onclick="window.location.href='global_market_overview_terminal.html'">Market</button>
+<button class="flex-1 py-xs text-xs font-label-caps text-on-surface-variant hover:text-on-surface">Limit</button>
+<button class="flex-1 py-xs text-xs font-label-caps text-on-surface-variant hover:text-on-surface">Stop</button>
+</div>
+<div class="space-y-md">
+<div>
+<label class="text-[10px] font-label-caps text-on-surface-variant mb-xs block">Amount (BTC)</label>
+<div class="bg-surface-container-lowest border border-outline-variant p-sm rounded flex justify-between items-center focus-within:border-secondary">
+<input class="bg-transparent border-none focus:ring-0 p-0 text-on-surface w-full font-data-mono" type="text" value="0.5"/>
+<span class="text-[10px] text-on-surface-variant font-label-caps">MAX</span>
+</div>
+</div>
+<div>
+<label class="text-[10px] font-label-caps text-on-surface-variant mb-xs block">Leverage: 25x</label>
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" type="range"/>
+<div class="flex justify-between mt-xs">
+<span class="text-[8px] text-on-surface-variant">1x</span>
+<span class="text-[8px] text-on-surface-variant">25x</span>
+<span class="text-[8px] text-on-surface-variant">50x</span>
+<span class="text-[8px] text-on-surface-variant">100x</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<button class="bg-[#003640] border border-secondary/50 text-secondary font-label-caps py-md rounded-lg shadow-[0_0_15px_rgba(76,215,246,0.15)] hover:bg-secondary hover:text-on-secondary transition-all">
+                                    BUY / LONG
+                                </button>
+<button class="bg-[#581e00] border border-tertiary/50 text-tertiary font-label-caps py-md rounded-lg shadow-[0_0_15px_rgba(255,181,150,0.15)] hover:bg-tertiary hover:text-on-tertiary transition-all">
+                                    SELL / SHORT
+                                </button>
+</div>
+</div>
+</div>
+<!-- Order Book -->
+<div class="flex-1 glass-panel rounded-lg border border-outline-variant flex flex-col overflow-hidden">
+<div class="px-md py-sm border-b border-outline-variant bg-surface-container-low">
+<span class="font-label-caps text-on-surface">Order Book</span>
+</div>
+<div class="flex-1 font-data-mono text-[10px] overflow-hidden p-xs">
+<div class="grid grid-cols-3 text-on-surface-variant font-label-caps mb-xs px-sm">
+<span>Price</span>
+<span class="text-right">Size</span>
+<span class="text-right">Total</span>
+</div>
+<!-- Asks (Red) -->
+<div class="space-y-[1px]">
+<div class="grid grid-cols-3 px-sm py-[2px] orderbook-row-ask">
+<span class="text-tertiary">64,285.50</span>
+<span class="text-right text-on-surface">1.241</span>
+<span class="text-right text-on-surface-variant">5.421</span>
+</div>
+<div class="grid grid-cols-3 px-sm py-[2px] orderbook-row-ask">
+<span class="text-tertiary">64,284.10</span>
+<span class="text-right text-on-surface">0.052</span>
+<span class="text-right text-on-surface-variant">4.180</span>
+</div>
+<div class="grid grid-cols-3 px-sm py-[2px] orderbook-row-ask">
+<span class="text-tertiary">64,283.00</span>
+<span class="text-right text-on-surface">2.810</span>
+<span class="text-right text-on-surface-variant">4.128</span>
+</div>
+</div>
+<!-- Spread -->
+<div class="my-sm py-sm border-y border-outline-variant text-center bg-surface-container-highest/30">
+<span class="font-label-caps text-on-surface mr-md">Spread: 1.50</span>
+<span class="text-secondary">64,281.50</span>
+</div>
+<!-- Bids (Green) -->
+<div class="space-y-[1px]">
+<div class="grid grid-cols-3 px-sm py-[2px] orderbook-row-bid">
+<span class="text-secondary">64,280.00</span>
+<span class="text-right text-on-surface">0.125</span>
+<span class="text-right text-on-surface-variant">0.125</span>
+</div>
+<div class="grid grid-cols-3 px-sm py-[2px] orderbook-row-bid">
+<span class="text-secondary">64,279.50</span>
+<span class="text-right text-on-surface">3.512</span>
+<span class="text-right text-on-surface-variant">3.637</span>
+</div>
+<div class="grid grid-cols-3 px-sm py-[2px] orderbook-row-bid">
+<span class="text-secondary">64,278.20</span>
+<span class="text-right text-on-surface">1.040</span>
+<span class="text-right text-on-surface-variant">4.677</span>
+</div>
+</div>
