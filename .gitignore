@@ -1,0 +1,17 @@
+# Dependency directories
+node_modules/
+backend/node_modules/
+
+# Local databases
+*.db
+*.db-journal
+backend/*.db
+backend/*.db-journal
+
+# Log files
+*.log
+backend/*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
