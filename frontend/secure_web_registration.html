@@ -118,6 +118,7 @@
           },
         }
       </script>
+<script src="assets/js/auth.js" defer></script>
 </head>
 <body class="bg-surface-container-lowest text-on-surface font-body-md overflow-x-hidden">
 <!-- TopNavBar -->
@@ -183,27 +184,27 @@
 <h2 class="font-display-sm text-display-sm text-white mb-xs">Create Account</h2>
 <p class="font-body-md text-body-md text-on-surface-variant">Join the global trading network.</p>
 </div>
-<form class="space-y-md">
+<form id="registration-form" class="space-y-md">
 <div class="space-y-xs">
 <label class="font-label-caps text-label-caps text-on-surface-variant ml-1">Full Name</label>
 <div class="relative flex items-center border border-outline-variant/30 rounded-xl bg-surface-container-lowest/50 focus-within:border-primary transition-all">
 <span class="material-symbols-outlined text-outline-variant absolute left-md" data-icon="person">person</span>
-<input class="w-full bg-transparent border-none focus:ring-0 text-white py-md pl-xl placeholder:text-outline-variant/50" placeholder="Enter your name" type="text"/>
+<input id="reg-name" required class="w-full bg-transparent border-none focus:ring-0 text-white py-md pl-xl placeholder:text-outline-variant/50" placeholder="Enter your name" type="text"/>
 </div>
 </div>
 <div class="space-y-xs">
 <label class="font-label-caps text-label-caps text-on-surface-variant ml-1">Email Address</label>
 <div class="relative flex items-center border border-outline-variant/30 rounded-xl bg-surface-container-lowest/50 focus-within:border-primary transition-all">
 <span class="material-symbols-outlined text-outline-variant absolute left-md" data-icon="mail">mail</span>
-<input class="w-full bg-transparent border-none focus:ring-0 text-white py-md pl-xl placeholder:text-outline-variant/50" placeholder="name@example.com" type="email"/>
+<input id="reg-email" required class="w-full bg-transparent border-none focus:ring-0 text-white py-md pl-xl placeholder:text-outline-variant/50" placeholder="name@example.com" type="email"/>
 </div>
 </div>
 <div class="space-y-xs">
 <label class="font-label-caps text-label-caps text-on-surface-variant ml-1">Password</label>
 <div class="relative flex items-center border border-outline-variant/30 rounded-xl bg-surface-container-lowest/50 focus-within:border-primary transition-all">
 <span class="material-symbols-outlined text-outline-variant absolute left-md" data-icon="lock">lock</span>
-<input class="w-full bg-transparent border-none focus:ring-0 text-white py-md pl-xl" placeholder="••••••••" type="password"/>
-<button class="absolute right-md text-outline-variant hover:text-white transition-colors" type="button">
+<input id="reg-password" required class="w-full bg-transparent border-none focus:ring-0 text-white py-md pl-xl" placeholder="••••••••" type="password"/>
+<button class="absolute right-md text-outline-variant hover:text-white transition-colors" type="button" onclick="const p = document.getElementById('reg-password'); p.type = p.type === 'password' ? 'text' : 'password';">
 <span class="material-symbols-outlined" data-icon="visibility">visibility</span>
 </button>
 </div>
@@ -214,7 +215,7 @@
 I agree to the <a class="text-primary hover:underline" href="institutional_profile_security_settings.html">Terms</a> and <a class="text-primary hover:underline" href="institutional_profile_security_settings.html">Privacy</a>.
 </label>
 </div>
-<button class="w-full py-md bg-primary text-on-primary rounded-xl font-bold font-body-md hover:brightness-110 transition-all shadow-lg shadow-primary/20" type="submit" onclick="window.location.href='institutional_profile_security_settings.html'">
+<button class="w-full py-md bg-primary text-on-primary rounded-xl font-bold font-body-md hover:brightness-110 transition-all shadow-lg shadow-primary/20" type="submit">
 Create Account
 </button>
 </form>
@@ -283,4 +284,41 @@ Already have an account? <a class="text-primary font-bold hover:underline" href=
 <p class="font-body-sm text-body-sm text-on-surface-variant opacity-60">© 2024 VeltrixaFX. Professional Trading Services. Risk Warning: Trading Forex and Derivatives carries a high level of risk.</p>
 </div>
 </footer>
+<script>
+document.getElementById('registration-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const termsChecked = document.getElementById('terms').checked;
+  
+  if (!termsChecked) {
+    showToast('You must agree to the Terms and Privacy Policy.', 'warning');
+    return;
+  }
+  
+  try {
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    
+    const data = await res.json();
+    
+    if (res.ok) {
+      showToast('Registration successful! Redirecting to login...', 'success');
+      setTimeout(() => {
+        window.location.href = 'secure_web_login.html';
+      }, 1500);
+    } else {
+      showToast(data.message || 'Registration failed.', 'error');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Network error during registration. Please try again.', 'error');
+  }
+});
+</script>
 </body></html>

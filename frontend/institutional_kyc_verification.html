@@ -3,6 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="assets/js/auth.js" defer></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -219,13 +220,17 @@
 </div>
 <!-- Document Upload -->
 <div class="space-y-sm glass-card p-md rounded-xl">
-<div class="flex items-center justify-between">
+<div class="flex items-center justify-between flex-wrap gap-xs">
 <h3 class="font-headline-md text-body-lg font-bold text-on-surface">Document Verification</h3>
-<select class="bg-surface-variant border-none rounded px-sm py-xs text-body-sm text-primary">
-<option>Passport</option>
-<option>ID Card</option>
-<option>Driver's License</option>
+<select id="kyc-doc-type" class="bg-surface-variant border-none rounded px-sm py-xs text-body-sm text-primary font-bold">
+<option value="Passport">Passport</option>
+<option value="ID Card">ID Card</option>
+<option value="Driver's License">Driver's License</option>
 </select>
+</div>
+<div class="space-y-xs mt-sm">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Document Identification Number</label>
+<input id="kyc-doc-number" class="w-full bg-surface-container border border-outline-variant rounded-lg px-md py-sm focus:ring-1 focus:ring-secondary focus:border-secondary transition-all outline-none text-on-surface placeholder:text-outline-variant font-body-md" placeholder="e.g. VX-992140" type="text" value="VX-992140"/>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-sm">
 <div class="border-2 border-dashed border-outline-variant rounded-xl p-md flex flex-col items-center justify-center gap-xs hover:border-primary transition-colors cursor-pointer group">
@@ -265,7 +270,7 @@
 </div>
 <!-- Action & Security -->
 <div class="space-y-md pt-sm">
-<button class="w-full py-md bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-headline-md text-body-lg font-bold rounded-xl electric-glow active:scale-95 transition-transform" onclick="window.location.href='unified_verification_hub.html'">
+<button id="submit-kyc-btn" class="w-full py-md bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-headline-md text-body-lg font-bold rounded-xl electric-glow active:scale-95 transition-transform">
                             Submit Verification
                         </button>
 <div class="flex items-center justify-center gap-md">
@@ -300,4 +305,48 @@
 </div>
 </div>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const submitBtn = document.getElementById('submit-kyc-btn');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      const docTypeSelect = document.getElementById('kyc-doc-type');
+      const documentType = docTypeSelect ? docTypeSelect.value : 'Passport';
+      
+      const docNumInput = document.getElementById('kyc-doc-number');
+      const documentNumber = docNumInput ? docNumInput.value : '';
+      
+      if (!documentNumber) {
+        showToast('Document identification number is required.', 'error');
+        return;
+      }
+      
+      try {
+        const res = await fetch('/api/profile/kyc/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ documentType, documentNumber })
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok) {
+          showToast('KYC successfully submitted and verified instantly!', 'success');
+          // Wait 1.5 seconds and redirect back to user profile page
+          setTimeout(() => {
+            window.location.href = 'user_profile.html';
+          }, 1500);
+        } else {
+          showToast(data.message || 'Failed to submit KYC.', 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showToast('Network error during KYC submission.', 'error');
+      }
+    });
+  }
+});
+</script>
 </body></html>

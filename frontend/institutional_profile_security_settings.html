@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>User Profile | VeltrixaFX Terminal</title>
+<script src="assets/js/auth.js" defer></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
@@ -220,35 +221,37 @@
 <span class="material-symbols-outlined text-secondary" data-icon="contact_page">contact_page</span>
                     Personal Information
                 </h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
 <div class="space-y-xs">
 <label class="font-label-caps text-label-caps text-outline ml-1">Full Name</label>
 <div class="bg-surface-container-low border border-outline-variant/30 p-sm rounded focus-within:border-secondary transition-colors">
-<input class="bg-transparent border-none focus:ring-0 w-full p-0 font-body-md text-on-surface" type="text" value="Ajmir Trader"/>
+<input id="profile-name" class="bg-transparent border-none focus:ring-0 w-full p-0 font-body-md text-on-surface" type="text" value="Ajmir Trader"/>
 </div>
 </div>
 <div class="space-y-xs">
 <label class="font-label-caps text-label-caps text-outline ml-1">Email Address</label>
-<div class="bg-surface-container-low border border-outline-variant/30 p-sm rounded focus-within:border-secondary transition-colors">
-<input class="bg-transparent border-none focus:ring-0 w-full p-0 font-body-md text-on-surface" type="email" value="ajmir.trader@veltrixafx.io"/>
+<div class="bg-surface-container-low border border-outline-variant/30 p-sm rounded focus-within:border-secondary transition-colors opacity-60">
+<input id="profile-email" disabled class="bg-transparent border-none focus:ring-0 w-full p-0 font-body-md text-on-surface cursor-not-allowed" type="email" value="ajmir.trader@veltrixafx.io"/>
 </div>
 </div>
 <div class="space-y-xs">
 <label class="font-label-caps text-label-caps text-outline ml-1">Phone Number</label>
 <div class="bg-surface-container-low border border-outline-variant/30 p-sm rounded focus-within:border-secondary transition-colors">
-<input class="bg-transparent border-none focus:ring-0 w-full p-0 font-body-md text-on-surface" type="text" value="+44 7700 900123"/>
+<input id="profile-phone" class="bg-transparent border-none focus:ring-0 w-full p-0 font-body-md text-on-surface" type="text" value="+44 7700 900123"/>
 </div>
 </div>
 <div class="space-y-xs">
 <label class="font-label-caps text-label-caps text-outline ml-1">Country / Region</label>
 <div class="bg-surface-container-low border border-outline-variant/30 p-sm rounded focus-within:border-secondary transition-colors">
-<select class="bg-transparent border-none focus:ring-0 w-full p-0 font-body-md text-on-surface appearance-none">
+<select id="profile-country" class="bg-transparent border-none focus:ring-0 w-full p-0 font-body-md text-on-surface appearance-none">
 <option class="bg-surface-container">United Kingdom</option>
 <option class="bg-surface-container">United States</option>
 <option class="bg-surface-container">Germany</option>
 </select>
 </div>
 </div>
+</div>
+<div class="mt-md flex justify-end">
+<button id="save-profile-btn" class="bg-secondary text-on-secondary-container font-label-caps text-label-caps px-md py-sm rounded hover:opacity-90 transition-opacity font-bold">Save Changes</button>
 </div>
 </section>
 <!-- KYC Status -->
@@ -470,4 +473,45 @@
 </div>
 </div>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const saveBtn = document.getElementById('save-profile-btn');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('profile-name').value;
+      const phone = document.getElementById('profile-phone').value;
+      const countrySelect = document.getElementById('profile-country');
+      const country = countrySelect ? countrySelect.options[countrySelect.selectedIndex].text : '';
+      
+      if (!name) {
+        showToast('Name is required.', 'error');
+        return;
+      }
+      
+      try {
+        const res = await fetch('/api/profile/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone, country })
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok) {
+          showToast('Profile updated successfully!', 'success');
+          // Reload page to reflect changes immediately
+          setTimeout(() => window.location.reload(), 1000);
+        } else {
+          showToast(data.message || 'Failed to update profile.', 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showToast('Network error updating profile.', 'error');
+      }
+    });
+  }
+});
+</script>
 </body></html>

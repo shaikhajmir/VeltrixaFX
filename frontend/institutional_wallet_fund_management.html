@@ -125,6 +125,7 @@
           }
         }
     </script>
+<script src="assets/js/auth.js" defer></script>
 </head>
 <body class="bg-surface-dim selection:bg-primary/30">
 <!-- TopNavBar -->
@@ -237,12 +238,12 @@
 <p class="text-body-sm font-body-sm text-on-surface-variant italic">≈ 0.512 BTC</p>
 </div>
 <div class="flex flex-wrap gap-sm mt-md md:mt-0 items-center">
-<button class="bg-primary-container hover:bg-blue-600 text-on-primary-container px-lg py-3 rounded-lg font-label-caps text-label-caps flex items-center gap-2 transition-all shadow-lg shadow-primary-container/20" onclick="window.location.href='institutional_wallet_fund_management.html'">
+<button class="bg-primary-container hover:bg-blue-600 text-on-primary-container px-lg py-3 rounded-lg font-label-caps text-label-caps flex items-center gap-2 transition-all shadow-lg shadow-primary-container/20" onclick="openModal('Deposit')">
 <span class="material-symbols-outlined">add_circle</span> Deposit
-                                    </button>
-<button class="bg-surface-container-highest hover:bg-surface-bright text-on-surface px-lg py-3 rounded-lg font-label-caps text-label-caps flex items-center gap-2 border border-outline-variant/30 transition-all" onclick="window.location.href='institutional_wallet_fund_management.html'">
+</button>
+<button class="bg-surface-container-highest hover:bg-surface-bright text-on-surface px-lg py-3 rounded-lg font-label-caps text-label-caps flex items-center gap-2 border border-outline-variant/30 transition-all" onclick="openModal('Withdraw')">
 <span class="material-symbols-outlined">outbox</span> Withdraw
-                                    </button>
+</button>
 <button class="bg-surface-container-highest hover:bg-surface-bright text-on-surface px-lg py-3 rounded-lg font-label-caps text-label-caps flex items-center gap-2 border border-outline-variant/30 transition-all" onclick="window.location.href='professional_trading_terminal.html'">
 <span class="material-symbols-outlined">swap_horiz</span> Transfer
                                     </button>
@@ -359,63 +360,8 @@
 <th class="px-md py-3 font-semibold">Date</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant/10 text-body-sm font-body-sm">
-<tr class="hover:bg-white/5 transition-colors group">
-<td class="px-md py-4 font-data-mono text-on-surface-variant">#VT-982310</td>
-<td class="px-md py-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-green-400 text-sm">download</span> Deposit
-                                                </div>
-</td>
-<td class="px-md py-4 font-bold">BTC</td>
-<td class="px-md py-4 font-data-mono">0.05000000</td>
-<td class="px-md py-4">
-<span class="px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] font-bold uppercase">Completed</span>
-</td>
-<td class="px-md py-4 text-on-surface-variant">Oct 24, 2023 14:22</td>
-</tr>
-<tr class="hover:bg-white/5 transition-colors group">
-<td class="px-md py-4 font-data-mono text-on-surface-variant">#VT-982295</td>
-<td class="px-md py-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-blue-400 text-sm">swap_horiz</span> Internal Transfer
-                                                </div>
-</td>
-<td class="px-md py-4 font-bold">USD</td>
-<td class="px-md py-4 font-data-mono">5,000.00</td>
-<td class="px-md py-4">
-<span class="px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] font-bold uppercase">Completed</span>
-</td>
-<td class="px-md py-4 text-on-surface-variant">Oct 23, 2023 09:15</td>
-</tr>
-<tr class="hover:bg-white/5 transition-colors group">
-<td class="px-md py-4 font-data-mono text-on-surface-variant">#VT-982110</td>
-<td class="px-md py-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-orange-400 text-sm">upload</span> Withdrawal
-                                                </div>
-</td>
-<td class="px-md py-4 font-bold">ETH</td>
-<td class="px-md py-4 font-data-mono">1.25000000</td>
-<td class="px-md py-4">
-<span class="px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 text-[10px] font-bold uppercase">Pending</span>
-</td>
-<td class="px-md py-4 text-on-surface-variant">Oct 22, 2023 21:40</td>
-</tr>
-<tr class="hover:bg-white/5 transition-colors group">
-<td class="px-md py-4 font-data-mono text-on-surface-variant">#VT-982005</td>
-<td class="px-md py-4">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-green-400 text-sm">download</span> Deposit
-                                                </div>
-</td>
-<td class="px-md py-4 font-bold">USDT</td>
-<td class="px-md py-4 font-data-mono">1,500.00</td>
-<td class="px-md py-4">
-<span class="px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] font-bold uppercase">Completed</span>
-</td>
-<td class="px-md py-4 text-on-surface-variant">Oct 21, 2023 11:30</td>
-</tr>
+<tbody id="transaction-history-body" class="divide-y divide-outline-variant/10 text-body-sm font-body-sm">
+<!-- Dynamically populated from backend SQLite database -->
 </tbody>
 </table>
 </div>
@@ -595,4 +541,176 @@
 </div>
 </main>
 </div>
+<!-- Transaction Modal -->
+<div id="tx-modal" class="fixed inset-0 z-[999] hidden flex items-center justify-center p-md bg-black/70 backdrop-blur-sm">
+  <div class="glass-card max-w-md w-full rounded-2xl p-lg relative overflow-hidden animate-slide-in">
+    <div class="absolute -right-10 -top-10 w-32 h-32 bg-primary/10 blur-2xl rounded-full"></div>
+    <div class="flex justify-between items-center mb-md">
+      <h3 id="modal-title" class="font-display-sm text-display-sm text-white">Deposit Funds</h3>
+      <button onclick="closeModal()" class="text-outline hover:text-white transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <form id="modal-form" class="space-y-md">
+      <div>
+        <label class="block font-label-caps text-label-caps text-outline mb-xs uppercase">Amount (USD)</label>
+        <div class="relative flex items-center border border-outline-variant/30 rounded-xl bg-surface-container-lowest/50 focus-within:border-primary transition-all">
+          <span class="material-symbols-outlined text-outline-variant absolute left-md">attach_money</span>
+          <input id="modal-amount" required type="number" step="0.01" min="1" class="w-full bg-transparent border-none focus:ring-0 text-white py-md pl-xl pr-sm placeholder:text-outline-variant/50 font-data-mono" placeholder="0.00"/>
+        </div>
+      </div>
+      <button id="modal-submit-btn" class="w-full py-md bg-primary text-on-primary rounded-xl font-bold font-body-md hover:brightness-110 transition-all shadow-lg shadow-primary/20" type="submit">
+        Confirm Transaction
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+let activeModalAction = 'Deposit';
+
+function openModal(action) {
+  activeModalAction = action;
+  document.getElementById('modal-title').textContent = action === 'Deposit' ? 'Deposit Funds' : 'Withdraw Funds';
+  document.getElementById('modal-amount').value = '';
+  document.getElementById('modal-submit-btn').textContent = action === 'Deposit' ? 'Confirm Deposit' : 'Confirm Withdrawal';
+  
+  if (action === 'Deposit') {
+    document.getElementById('modal-submit-btn').className = 'w-full py-md bg-primary text-on-primary rounded-xl font-bold font-body-md hover:brightness-110 transition-all shadow-lg shadow-primary/20';
+  } else {
+    document.getElementById('modal-submit-btn').className = 'w-full py-md bg-red-500 text-white rounded-xl font-bold font-body-md hover:brightness-110 transition-all shadow-lg shadow-red-500/20';
+  }
+  
+  document.getElementById('tx-modal').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('tx-modal').classList.add('hidden');
+}
+
+document.getElementById('modal-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const amount = parseFloat(document.getElementById('modal-amount').value);
+  
+  if (isNaN(amount) || amount <= 0) {
+    showToast('Please enter a valid amount.', 'warning');
+    return;
+  }
+  
+  const endpoint = activeModalAction === 'Deposit' ? '/api/wallet/deposit' : '/api/wallet/withdraw';
+  
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount })
+    });
+    
+    const data = await res.json();
+    
+    if (res.ok) {
+      showToast(data.message, 'success');
+      closeModal();
+      setTimeout(() => window.location.reload(), 1000);
+    } else {
+      showToast(data.message || 'Transaction failed.', 'error');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Network error processing transaction.', 'error');
+  }
+});
+
+async function loadWalletDetails() {
+  try {
+    const res = await fetch('/api/wallet/info');
+    if (!res.ok) return;
+    
+    const data = await res.json();
+    
+    // Update Portfolio Balance
+    const balanceHeadline = document.querySelector('h2.text-display-lg');
+    if (balanceHeadline) {
+      balanceHeadline.textContent = `$${parseFloat(data.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+    
+    // Update USD asset card balance
+    const assetCards = document.querySelectorAll('.bg-surface-container-low.border');
+    assetCards.forEach(card => {
+      const title = card.querySelector('p.text-on-surface-variant');
+      const val = card.querySelector('p.text-body-lg.font-bold');
+      if (title && val && title.textContent.trim() === 'US Dollar') {
+        val.textContent = `${parseFloat(data.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`;
+      }
+    });
+
+    // Populate Transaction history
+    const tbody = document.getElementById('transaction-history-body');
+    if (tbody) {
+      tbody.innerHTML = '';
+      
+      if (data.transactions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="px-md py-4 text-center text-outline">No transaction history.</td></tr>`;
+        return;
+      }
+      
+      data.transactions.forEach(tx => {
+        const dateStr = new Date(tx.timestamp).toLocaleString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        });
+        
+        let txIcon = 'download';
+        let txIconColor = 'text-green-400';
+        let amountPrefix = '+';
+        let statusBg = 'bg-green-500/10 text-green-400';
+        
+        if (tx.type === 'Withdrawal') {
+          txIcon = 'upload';
+          txIconColor = 'text-orange-400';
+          amountPrefix = '-';
+        }
+        
+        if (tx.status === 'Pending') {
+          statusBg = 'bg-orange-500/10 text-orange-400';
+        } else if (tx.status === 'Failed') {
+          statusBg = 'bg-red-500/10 text-red-400';
+        }
+        
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/5 transition-colors group';
+        tr.innerHTML = `
+          <td class="px-md py-4 font-data-mono text-on-surface-variant cursor-pointer hover:text-secondary" onclick="navigator.clipboard.writeText('${tx.tx_hash}'); showToast('Transaction hash copied!')">
+            #${tx.tx_hash.substring(0, 10)}...
+          </td>
+          <td class="px-md py-4">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined \${txIconColor} text-sm">\${txIcon}</span> \${tx.type}
+            </div>
+          </td>
+          <td class="px-md py-4 font-bold">USD</td>
+          <td class="px-md py-4 font-data-mono \${tx.type === 'Deposit' ? 'text-green-400' : 'text-orange-400'}">
+            \${amountPrefix}\${parseFloat(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </td>
+          <td class="px-md py-4">
+            <span class="px-2 py-0.5 rounded-full \${statusBg} text-[10px] font-bold uppercase">\${tx.status}</span>
+          </td>
+          <td class="px-md py-4 text-on-surface-variant">\${dateStr}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+  } catch (error) {
+    console.error('Error loading wallet details:', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadWalletDetails);
+// Call immediately as well
+loadWalletDetails();
+</script>
 </body></html>

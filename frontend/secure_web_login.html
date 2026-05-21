@@ -119,6 +119,7 @@
             },
         }
     </script>
+<script src="assets/js/auth.js" defer></script>
 </head>
 <body class="bg-background overflow-hidden">
 <main class="flex min-h-screen">
@@ -180,12 +181,12 @@
 <p class="font-body-md text-body-md text-on-surface-variant mt-xs">Access your institutional trading dashboard</p>
 </div>
 <!-- Form Section -->
-<form class="space-y-md">
+<form id="login-form" class="space-y-md">
 <div>
 <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs uppercase" for="email">Email Address</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline text-[20px]">alternate_email</span>
-<input class="w-full bg-surface-container border border-outline-variant/30 rounded-lg py-md pl-xl pr-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all placeholder:text-outline/50 font-body-md" id="email" placeholder="name@company.com" type="email"/>
+<input required class="w-full bg-surface-container border border-outline-variant/30 rounded-lg py-md pl-xl pr-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all placeholder:text-outline/50 font-body-md" id="email" placeholder="name@company.com" type="email"/>
 </div>
 </div>
 <div>
@@ -195,15 +196,15 @@
 </div>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
-<input class="w-full bg-surface-container border border-outline-variant/30 rounded-lg py-md pl-xl pr-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all placeholder:text-outline/50 font-body-md" id="password" placeholder="••••••••" type="password"/>
-<button class="absolute right-md top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" type="button">
+<input required class="w-full bg-surface-container border border-outline-variant/30 rounded-lg py-md pl-xl pr-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all placeholder:text-outline/50 font-body-md" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-md top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" type="button" onclick="const p = document.getElementById('password'); p.type = p.type === 'password' ? 'text' : 'password';">
 <span class="material-symbols-outlined text-[20px]">visibility</span>
 </button>
 </div>
 </div>
-<button class="w-full bg-primary-container text-on-primary-container font-headline-md py-md rounded-lg shadow-lg shadow-primary-container/20 hover:scale-[1.01] active:scale-[0.98] transition-all flex items-center justify-center gap-sm" type="submit" onclick="window.location.href='secure_web_login.html'">
-                        Sign In
-                        <span class="material-symbols-outlined">arrow_forward</span>
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md py-md rounded-lg shadow-lg shadow-primary-container/20 hover:scale-[1.01] active:scale-[0.98] transition-all flex items-center justify-center gap-sm" type="submit">
+Sign In
+<span class="material-symbols-outlined">arrow_forward</span>
 </button>
 </form>
 <!-- Divider -->
@@ -245,4 +246,34 @@
 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-primary-container">support_agent</span>
 </button>
 </div>
+<script>
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    
+    const data = await res.json();
+    
+    if (res.ok) {
+      showToast('Login successful! Welcome back.', 'success');
+      setTimeout(() => {
+        window.location.href = 'emerald_obsidian_edition.html';
+      }, 1000);
+    } else {
+      showToast(data.message || 'Invalid email or password.', 'error');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Network error during login. Please try again.', 'error');
+  }
+});
+</script>
 </body></html>
