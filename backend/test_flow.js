@@ -190,7 +190,77 @@ async function runTests() {
     if (finalMeRes.body.balance !== 12500) throw new Error('Final balance not persisted');
     console.log('✅ Final State Verification Passed.\n');
 
-    console.log('🎉 ALL TESTS PASSED SUCCESSFULLY! The VeltrixaFX Node/Express SQLite backend is fully verified and 100% functional! 🎉');
+    // 12. LEVERAGED TRADING FLOW
+    console.log('[TEST 12] Testing Leveraged Trading Flow (Open LONG Position on BTC/USD)...');
+    
+    // Check initial balance
+    const balanceBeforeOrder = finalMeRes.body.balance;
+    
+    // Fetch live price of BTC/USD first
+    const pricesRes = await request('GET', '/api/trading/prices', null, headers);
+    if (pricesRes.statusCode !== 200) throw new Error('Prices fetch failed');
+    const btcPrice = pricesRes.body['BTC/USD'].price;
+    console.log(`Current BTC/USD price is $${btcPrice}`);
+
+    // Place an order: Buy 0.1 BTC at 10x leverage
+    const orderRes = await request('POST', '/api/trading/order', {
+      symbol: 'BTC/USD',
+      side: 'LONG',
+      size: 0.1,
+      leverage: 10
+    }, headers);
+    console.log(`Response: ${orderRes.statusCode} -`, orderRes.body);
+    if (orderRes.statusCode !== 201) throw new Error('Order creation failed');
+    const positionId = orderRes.body.positionId;
+    const requiredMargin = orderRes.body.margin;
+    console.log(`Position ID: ${positionId}, Margin locked: $${requiredMargin}`);
+
+    // Check balance after order to ensure margin is deducted
+    const balanceAfterOrderRes = await request('GET', '/api/auth/me', null, headers);
+    const balanceAfterOrder = balanceAfterOrderRes.body.balance;
+    console.log(`Balance after order: $${balanceAfterOrder} (Expected: $${balanceBeforeOrder - requiredMargin})`);
+    if (Math.abs(balanceAfterOrder - (balanceBeforeOrder - requiredMargin)) > 0.05) {
+      throw new Error('Balance deduction mismatch after order placement');
+    }
+    console.log('✅ Leveraged Trading Position Open Passed.\n');
+
+    // 13. POSITION RETRIEVAL & UNREALIZED PNL CALCULATION
+    console.log('[TEST 13] Retrieving active positions and live P&L details...');
+    const positionsRes = await request('GET', '/api/trading/positions', null, headers);
+    console.log(`Response: ${positionsRes.statusCode} -`, positionsRes.body);
+    if (positionsRes.statusCode !== 200) throw new Error('Positions retrieval failed');
+    const activePosition = positionsRes.body.find(pos => pos.id === positionId);
+    if (!activePosition) throw new Error('Could not find active position in DB');
+    console.log(`Open position: Symbol: ${activePosition.symbol} | Side: ${activePosition.side} | Mark Price: ${activePosition.markPrice} | PNL: $${activePosition.pnl} | ROE: ${activePosition.roe}%`);
+    console.log('✅ Open Position Live Tracking Passed.\n');
+
+    // 14. CLOSE POSITION & COLLATERAL REFUND
+    console.log('[TEST 14] Closing the active position to trigger collateral & realized PNL refund...');
+    const closeRes = await request('POST', '/api/trading/close', {
+      positionId: positionId
+    }, headers);
+    console.log(`Response: ${closeRes.statusCode} -`, closeRes.body);
+    if (closeRes.statusCode !== 200) throw new Error('Position close failed');
+    const refundAmount = closeRes.body.refundAmount;
+    const roundedPnl = closeRes.body.pnl;
+    console.log(`Realized PNL: $${roundedPnl}, Refunded Collateral: $${refundAmount}`);
+
+    // Check balance after closing to ensure refund is credited
+    const balanceAfterCloseRes = await request('GET', '/api/auth/me', null, headers);
+    const balanceAfterClose = balanceAfterCloseRes.body.balance;
+    console.log(`Balance after close: $${balanceAfterClose} (Expected: $${balanceAfterOrder + refundAmount})`);
+    if (Math.abs(balanceAfterClose - (balanceAfterOrder + refundAmount)) > 0.05) {
+      throw new Error('Balance refund mismatch after closing position');
+    }
+    
+    // Verify position table is empty
+    const positionsFinalRes = await request('GET', '/api/trading/positions', null, headers);
+    if (positionsFinalRes.body.some(pos => pos.id === positionId)) {
+      throw new Error('Position was not deleted from active DB list after close');
+    }
+    console.log('✅ Position Close & Collateral Refund Passed.\n');
+
+    console.log('🎉 ALL TESTS PASSED SUCCESSFULLY! The VeltrixaFX Node/Express SQLite backend & Trading Engine are fully verified and 100% functional! 🎉');
   } catch (error) {
     console.error('❌ Integration test failed with error:', error);
   }

@@ -104,6 +104,22 @@ async function initDatabase() {
       )
     `);
 
+    // 6. Positions Table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS positions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        symbol TEXT NOT NULL,
+        side TEXT NOT NULL,
+        size REAL NOT NULL,
+        entry_price REAL NOT NULL,
+        leverage INTEGER NOT NULL,
+        margin REAL NOT NULL,
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      )
+    `);
+
     console.log('Database tables successfully initialized.');
   } catch (error) {
     console.error('Error initializing database tables:', error);

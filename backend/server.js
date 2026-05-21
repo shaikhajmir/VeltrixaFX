@@ -7,6 +7,7 @@ const { db } = require('./database');
 const authRoutes = require('./routes/auth');
 const walletRoutes = require('./routes/wallet');
 const profileRoutes = require('./routes/profile');
+const tradingRoutes = require('./routes/trading');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/wallet', walletRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/trading', tradingRoutes);
 
 // Fallback dynamic endpoint for trading stats / dashboard pairs
 app.get('/api/trading/pairs', (req, res) => {

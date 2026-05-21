@@ -118,6 +118,8 @@
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     </style>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/trading.js" defer></script>
 </head>
 <body class="text-on-surface font-body-md selection:bg-primary/30 overflow-hidden">
 <!-- Top Navigation Bar -->
@@ -299,19 +301,19 @@
 </div>
 <!-- Chart Canvas Placeholder -->
 <div class="flex-1 w-full bg-[#0d111a] relative">
-<img alt="Professional Candlestick Trading Chart" class="w-full h-full object-cover opacity-60" data-alt="A highly detailed professional candlestick trading chart displayed on a dark high-tech terminal. The candles are colored in vibrant terminal green and deep financial red, showing precise price action. The background features a subtle dark blue grid and horizontal price levels. Overlayed are translucent technical indicator lines in cyan and purple, suggesting sophisticated algorithmic trading analysis." src="assets/image_5.jpg"/>
+<div id="trading-chart-container" class="w-full h-full"></div>
 <!-- Floating Order Panel Overlay -->
-<div class="absolute right-md top-md w-64 glass-panel p-md rounded-xl shadow-2xl border border-primary/20">
+<div class="absolute right-md top-md w-64 glass-panel p-md rounded-xl shadow-2xl border border-primary/20 z-10">
 <div class="flex justify-between items-center mb-md">
 <span class="font-bold text-sm">Quick Trade</span>
 <span class="text-xs text-on-surface-variant">Spread: 0.2</span>
 </div>
 <div class="grid grid-cols-2 gap-sm mb-md">
-<button class="bg-error/20 hover:bg-error/30 text-error border border-error/30 py-sm rounded flex flex-col items-center transition-all">
+<button id="btn-sell" class="bg-error/20 hover:bg-error/30 text-error border border-error/30 py-sm rounded flex flex-col items-center transition-all">
 <span class="font-bold">SELL</span>
 <span class="text-xs font-data-mono">1.08418</span>
 </button>
-<button class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/30 py-sm rounded flex flex-col items-center transition-all">
+<button id="btn-buy" class="bg-secondary/20 hover:bg-secondary/30 text-secondary border border-secondary/30 py-sm rounded flex flex-col items-center transition-all">
 <span class="font-bold">BUY</span>
 <span class="text-xs font-data-mono">1.08422</span>
 </button>
@@ -319,7 +321,7 @@
 <div class="space-y-sm">
 <div>
 <label class="text-[10px] uppercase text-on-surface-variant font-bold">Lot Size</label>
-<input class="w-full bg-surface-container-highest border-outline-variant/30 rounded py-1 text-sm text-center font-data-mono" type="number" value="1.00"/>
+<input id="trade-amount" class="w-full bg-surface-container-highest border-outline-variant/30 rounded py-1 text-sm text-center font-data-mono" type="number" value="1.00"/>
 </div>
 <div class="grid grid-cols-2 gap-xs">
 <button class="text-[10px] border border-outline-variant/30 py-1 rounded">Stop Loss</button>
@@ -382,51 +384,22 @@
 <!-- Open Positions Table -->
 <div class="col-span-12 lg:col-span-8 glass-panel rounded-xl overflow-hidden">
 <div class="px-md py-sm border-b border-outline-variant/10 flex justify-between items-center">
-<h3 class="font-bold text-sm">Open Positions (3)</h3>
+<h3 id="positions-count" class="font-bold text-sm">Open Positions (0)</h3>
 <button class="text-xs text-primary hover:underline">Close All</button>
 </div>
 <table class="w-full text-sm">
 <thead class="bg-surface-container-low text-on-surface-variant text-[10px] uppercase font-bold">
 <tr>
 <th class="px-md py-sm text-left">Asset</th>
-<th class="px-md py-sm text-left">Type</th>
+<th class="px-md py-sm text-left">Side</th>
+<th class="px-md py-sm text-right">Size</th>
 <th class="px-md py-sm text-right">Entry</th>
-<th class="px-md py-sm text-right">Current</th>
-<th class="px-md py-sm text-right">P&amp;L</th>
-<th class="px-md py-sm text-center">Actions</th>
+<th class="px-md py-sm text-right">Mark Price</th>
+<th class="px-md py-sm text-right">PNL (ROE)</th>
+<th class="px-md py-sm text-center">Action</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant/10">
-<tr class="hover:bg-white/5 transition-colors">
-<td class="px-md py-sm font-bold">EURUSD</td>
-<td class="px-md py-sm"><span class="text-secondary">BUY 1.00</span></td>
-<td class="px-md py-sm text-right font-data-mono">1.08210</td>
-<td class="px-md py-sm text-right font-data-mono">1.08422</td>
-<td class="px-md py-sm text-right font-data-mono text-secondary">+$212.00</td>
-<td class="px-md py-sm text-center">
-<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-error">close</button>
-</td>
-</tr>
-<tr class="hover:bg-white/5 transition-colors">
-<td class="px-md py-sm font-bold">XAUUSD</td>
-<td class="px-md py-sm"><span class="text-secondary">BUY 0.50</span></td>
-<td class="px-md py-sm text-right font-data-mono">2315.40</td>
-<td class="px-md py-sm text-right font-data-mono">2321.45</td>
-<td class="px-md py-sm text-right font-data-mono text-secondary">+$302.50</td>
-<td class="px-md py-sm text-center">
-<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-error">close</button>
-</td>
-</tr>
-<tr class="hover:bg-white/5 transition-colors">
-<td class="px-md py-sm font-bold">BTCUSD</td>
-<td class="px-md py-sm"><span class="text-error">SELL 0.10</span></td>
-<td class="px-md py-sm text-right font-data-mono">65,100.0</td>
-<td class="px-md py-sm text-right font-data-mono">64,218.4</td>
-<td class="px-md py-sm text-right font-data-mono text-secondary">+$88.16</td>
-<td class="px-md py-sm text-center">
-<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-error">close</button>
-</td>
-</tr>
+<tbody id="positions-tbody" class="divide-y divide-outline-variant/10">
 </tbody>
 </table>
 </div>

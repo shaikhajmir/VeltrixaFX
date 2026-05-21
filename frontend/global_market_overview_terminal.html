@@ -121,6 +121,54 @@
             stroke-dashoffset: 0;
         }
     </style>
+<script src="assets/js/auth.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    async function updateGlobalMarketPrices() {
+        try {
+            const res = await fetch('/api/trading/prices');
+            if (!res.ok) return;
+            const prices = await res.json();
+            
+            updatePairPrice('EUR/USD', prices['EUR/USD']);
+            updatePairPrice('GBP/USD', prices['GBP/USD']);
+            updatePairPrice('BTC/USD', prices['BTC/USD']);
+            updatePairPrice('GOLD', prices['GOLD']);
+        } catch (err) {
+            console.error('Failed to update global market overview prices:', err);
+        }
+    }
+    
+    function updatePairPrice(symbol, ticker) {
+        if (!ticker) return;
+        
+        const row = document.querySelector(`[data-symbol="${symbol}"]`);
+        if (!row) return;
+        
+        const priceCell = row.querySelector('.pair-price');
+        const changeCell = row.querySelector('.pair-change');
+        const rangeCell = row.querySelector('.pair-range');
+        
+        const precision = symbol.includes('EUR') || symbol.includes('GBP') ? 5 : 2;
+        
+        if (priceCell) {
+            priceCell.textContent = ticker.price.toFixed(precision);
+            priceCell.className = `pair-price px-md py-md font-data-mono text-data-mono ${ticker.trend === 1 ? 'text-secondary' : 'text-tertiary'}`;
+        }
+        if (changeCell) {
+            const sign = ticker.change >= 0 ? '+' : '';
+            changeCell.textContent = `${sign}${ticker.change.toFixed(2)}%`;
+            changeCell.className = `pair-change px-md py-md font-data-mono text-data-mono ${ticker.change >= 0 ? 'text-secondary' : 'text-tertiary'}`;
+        }
+        if (rangeCell) {
+            rangeCell.textContent = `${ticker.high.toFixed(precision)} / ${ticker.low.toFixed(precision)}`;
+        }
+    }
+    
+    updateGlobalMarketPrices();
+    setInterval(updateGlobalMarketPrices, 1000);
+});
+</script>
 </head>
 <body class="font-body-md text-on-surface financial-grid min-h-screen">
 <!-- Top Navigation Shell -->
@@ -273,7 +321,7 @@
 </thead>
 <tbody class="divide-y divide-outline-variant/10">
 <!-- EUR/USD -->
-<tr class="hover:bg-white/5 transition-all duration-150 group">
+<tr data-symbol="EUR/USD" class="hover:bg-white/5 transition-all duration-150 group">
 <td class="px-md py-md">
 <div class="flex items-center gap-sm">
 <div class="flex -space-x-2">
@@ -283,9 +331,9 @@
 <span class="font-bold">EUR / USD</span>
 </div>
 </td>
-<td class="px-md py-md font-data-mono text-data-mono">1.08542</td>
-<td class="px-md py-md font-data-mono text-data-mono text-[#4ade80]">+0.12%</td>
-<td class="px-md py-md font-data-mono text-data-mono text-[12px] opacity-70">1.089 / 1.084</td>
+<td class="pair-price px-md py-md font-data-mono text-data-mono">1.08542</td>
+<td class="pair-change px-md py-md font-data-mono text-data-mono text-[#4ade80]">+0.12%</td>
+<td class="pair-range px-md py-md font-data-mono text-data-mono text-[12px] opacity-70">1.089 / 1.084</td>
 <td class="px-md py-md font-data-mono text-data-mono">8.2M</td>
 <td class="px-md py-md">
 <svg class="w-20 h-6" viewbox="0 0 100 30">
@@ -297,7 +345,7 @@
 </td>
 </tr>
 <!-- GBP/USD -->
-<tr class="hover:bg-white/5 transition-all duration-150">
+<tr data-symbol="GBP/USD" class="hover:bg-white/5 transition-all duration-150">
 <td class="px-md py-md">
 <div class="flex items-center gap-sm">
 <div class="flex -space-x-2">
@@ -307,9 +355,9 @@
 <span class="font-bold">GBP / USD</span>
 </div>
 </td>
-<td class="px-md py-md font-data-mono text-data-mono">1.26441</td>
-<td class="px-md py-md font-data-mono text-data-mono text-error">-0.08%</td>
-<td class="px-md py-md font-data-mono text-data-mono text-[12px] opacity-70">1.268 / 1.262</td>
+<td class="pair-price px-md py-md font-data-mono text-data-mono">1.26441</td>
+<td class="pair-change px-md py-md font-data-mono text-data-mono text-error">-0.08%</td>
+<td class="pair-range px-md py-md font-data-mono text-data-mono text-[12px] opacity-70">1.268 / 1.262</td>
 <td class="px-md py-md font-data-mono text-data-mono">5.4M</td>
 <td class="px-md py-md">
 <svg class="w-20 h-6" viewbox="0 0 100 30">
@@ -321,7 +369,7 @@
 </td>
 </tr>
 <!-- BTC/USD -->
-<tr class="hover:bg-white/5 transition-all duration-150">
+<tr data-symbol="BTC/USD" class="hover:bg-white/5 transition-all duration-150">
 <td class="px-md py-md">
 <div class="flex items-center gap-sm">
 <div class="flex -space-x-2">
@@ -331,9 +379,9 @@
 <span class="font-bold">BTC / USD</span>
 </div>
 </td>
-<td class="px-md py-md font-data-mono text-data-mono">64,231.5</td>
-<td class="px-md py-md font-data-mono text-data-mono text-[#4ade80]">+1.85%</td>
-<td class="px-md py-md font-data-mono text-data-mono text-[12px] opacity-70">65.2k / 62.8k</td>
+<td class="pair-price px-md py-md font-data-mono text-data-mono">64,231.5</td>
+<td class="pair-change px-md py-md font-data-mono text-data-mono text-[#4ade80]">+1.85%</td>
+<td class="pair-range px-md py-md font-data-mono text-data-mono text-[12px] opacity-70">65.2k / 62.8k</td>
 <td class="px-md py-md font-data-mono text-data-mono">12.4B</td>
 <td class="px-md py-md">
 <svg class="w-20 h-6" viewbox="0 0 100 30">
@@ -345,7 +393,7 @@
 </td>
 </tr>
 <!-- XAU/USD -->
-<tr class="hover:bg-white/5 transition-all duration-150">
+<tr data-symbol="GOLD" class="hover:bg-white/5 transition-all duration-150">
 <td class="px-md py-md">
 <div class="flex items-center gap-sm">
 <div class="flex -space-x-2">
@@ -355,9 +403,9 @@
 <span class="font-bold">Gold / USD</span>
 </div>
 </td>
-<td class="px-md py-md font-data-mono text-data-mono">2,324.40</td>
-<td class="px-md py-md font-data-mono text-data-mono text-[#4ade80]">+0.42%</td>
-<td class="px-md py-md font-data-mono text-data-mono text-[12px] opacity-70">2335 / 2315</td>
+<td class="pair-price px-md py-md font-data-mono text-data-mono">2,324.40</td>
+<td class="pair-change px-md py-md font-data-mono text-data-mono text-[#4ade80]">+0.42%</td>
+<td class="pair-range px-md py-md font-data-mono text-data-mono text-[12px] opacity-70">2335 / 2315</td>
 <td class="px-md py-md font-data-mono text-data-mono">2.1B</td>
 <td class="px-md py-md">
 <svg class="w-20 h-6" viewbox="0 0 100 30">
