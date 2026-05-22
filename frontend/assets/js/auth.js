@@ -107,7 +107,12 @@ async function checkSession() {
       currentUser = await response.json();
       console.log('Authenticated user:', currentUser.name);
 
-      if (currentPage.includes('secure_web_login.html') || currentPage.includes('secure_web_registration.html')) {
+      if (
+        currentPage.includes('secure_web_login.html') || 
+        currentPage.includes('secure_web_registration.html') ||
+        currentPage.includes('secure_password_recovery.html') ||
+        currentPage.includes('secure_password_reset.html')
+      ) {
         window.location.href = 'professional_trading_terminal.html';
         return;
       }
