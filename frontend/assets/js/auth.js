@@ -107,9 +107,8 @@ async function checkSession() {
       currentUser = await response.json();
       console.log('Authenticated user:', currentUser.name);
 
-      // If user is on login/register, redirect them to dashboard
       if (currentPage.includes('secure_web_login.html') || currentPage.includes('secure_web_registration.html')) {
-        window.location.href = 'emerald_obsidian_edition.html';
+        window.location.href = 'professional_trading_terminal.html';
         return;
       }
 
@@ -141,6 +140,25 @@ function updateDynamicUI(user) {
 
 function applyUserDOM(user) {
   if (!user) return;
+
+  // Update landing page login/register buttons to Dashboard if logged in
+  const landingBtns = document.querySelectorAll('button, a');
+  landingBtns.forEach(btn => {
+    const text = btn.textContent.trim().toLowerCase();
+    if (text === 'login') {
+      btn.textContent = 'Dashboard';
+      btn.onclick = (e) => {
+        e.preventDefault();
+        window.location.href = 'professional_trading_terminal.html';
+      };
+    } else if (text === 'start trading' || text.includes('start trading')) {
+      btn.innerHTML = 'Go to Dashboard <span class="material-symbols-outlined">trending_up</span>';
+      btn.onclick = (e) => {
+        e.preventDefault();
+        window.location.href = 'professional_trading_terminal.html';
+      };
+    }
+  });
 
   // Replace names (Case insensitive replacements of placeholders)
   const elements = document.body.getElementsByTagName('*');
