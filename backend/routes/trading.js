@@ -209,4 +209,135 @@ router.post('/close', authMiddleware, async (req, res) => {
   }
 });
 
+// GET USER'S ACTIVE COPY TRADING PORTFOLIOS
+router.get('/copy/active', authMiddleware, async (req, res) => {
+  try {
+    const copies = await dbAll('SELECT * FROM copy_relationships WHERE user_id = ? ORDER BY timestamp DESC', [req.user.id]);
+    res.json(copies);
+  } catch (error) {
+    console.error('Fetch copies error:', error);
+    res.status(500).json({ message: 'Server error retrieving copy trading relationships.' });
+  }
+});
+
+// START COPYING A PROFESSIONAL TRADER
+router.post('/copy/start', authMiddleware, async (req, res) => {
+  const { traderName, allocatedAmount } = req.body;
+  const amount = parseFloat(allocatedAmount);
+
+  if (!traderName) {
+    return res.status(400).json({ message: 'Please specify the trader you want to copy.' });
+  }
+
+  if (isNaN(amount) || amount <= 0) {
+    return res.status(400).json({ message: 'Please allocate a valid copy trading capital greater than 0.' });
+  }
+
+  try {
+    // 1. Ensure user has enough wallet balance
+    const wallet = await dbGet('SELECT balance FROM wallets WHERE user_id = ?', [req.user.id]);
+    if (!wallet || wallet.balance < amount) {
+      return res.status(400).json({ message: 'Insufficient trading balance to copy this strategy.' });
+    }
+
+    // 2. Deduct copy trade allocation from main wallet balance
+    await dbRun(
+      'UPDATE wallets SET balance = balance - ? WHERE user_id = ?',
+      [amount, req.user.id]
+    );
+
+    // 3. Generate transaction hash
+    const txHash = '0x' + Math.random().toString(16).substring(2, 12) + Math.random().toString(16).substring(2, 12);
+
+    // 4. Create transaction ledger entry (Withdrawal/Allocation)
+    await dbRun(
+      'INSERT INTO transactions (user_id, type, amount, status, tx_hash) VALUES (?, ?, ?, ?, ?)',
+      [req.user.id, 'Withdrawal', amount, 'Completed', txHash]
+    );
+
+    // Get trader default stats
+    let roiRate = 28.4;
+    let winRate = 84;
+    let riskScore = 'Medium';
+    if (traderName.toLowerCase().includes('sophia')) {
+      roiRate = 41.2;
+      winRate = 76;
+      riskScore = 'High';
+    } else if (traderName.toLowerCase().includes('marcus')) {
+      roiRate = 12.8;
+      winRate = 92;
+      riskScore = 'Low';
+    }
+
+    // 5. Insert copy relationship record
+    const result = await dbRun(
+      'INSERT INTO copy_relationships (user_id, trader_name, roi_rate, win_rate, risk_score, allocated_amount) VALUES (?, ?, ?, ?, ?, ?)',
+      [req.user.id, traderName, roiRate, winRate, riskScore, amount]
+    );
+
+    res.status(201).json({
+      message: `Successfully allocated $${amount.toLocaleString()} to copy ${traderName}!`,
+      relationshipId: result.id,
+      allocatedAmount: amount,
+      traderName,
+      txHash
+    });
+  } catch (error) {
+    console.error('Start copy trading error:', error);
+    res.status(500).json({ message: 'Server error starting copy trade.' });
+  }
+});
+
+// STOP COPYING A PROFESSIONAL TRADER & RETRIEVE CAPITAL
+router.post('/copy/stop', authMiddleware, async (req, res) => {
+  const { relationshipId } = req.body;
+
+  if (!relationshipId) {
+    return res.status(400).json({ message: 'Please specify the copy trading relationship ID to stop.' });
+  }
+
+  try {
+    // 1. Fetch copy relationship
+    const copy = await dbGet('SELECT * FROM copy_relationships WHERE id = ? AND user_id = ?', [relationshipId, req.user.id]);
+    if (!copy) {
+      return res.status(404).json({ message: 'Active copy trading relationship not found or unauthorized.' });
+    }
+
+    // 2. Compute returns based on strategy ROI + small random factor
+    const baseRoi = copy.roi_rate / 100;
+    const profitFactor = baseRoi + (Math.random() - 0.5) * 0.05;
+    const pnl = copy.allocated_amount * profitFactor;
+    const finalAmount = +Math.max(0, copy.allocated_amount + pnl).toFixed(2);
+
+    // 3. Return initial allocation + profits back to wallet
+    await dbRun(
+      'UPDATE wallets SET balance = balance + ? WHERE user_id = ?',
+      [finalAmount, req.user.id]
+    );
+
+    // 4. Generate transaction hash
+    const txHash = '0x' + Math.random().toString(16).substring(2, 12) + Math.random().toString(16).substring(2, 12);
+
+    // 5. Create transaction ledger entry (Deposit/Payout)
+    await dbRun(
+      'INSERT INTO transactions (user_id, type, amount, status, tx_hash) VALUES (?, ?, ?, ?, ?)',
+      [req.user.id, 'Deposit', finalAmount, 'Completed', txHash]
+    );
+
+    // 6. Delete copy relationship row
+    await dbRun('DELETE FROM copy_relationships WHERE id = ?', [relationshipId]);
+
+    res.json({
+      message: `Stopped copying ${copy.trader_name} successfully!`,
+      initialAllocation: copy.allocated_amount,
+      refundAmount: finalAmount,
+      realizedPnl: +(finalAmount - copy.allocated_amount).toFixed(2),
+      txHash
+    });
+  } catch (error) {
+    console.error('Stop copy trading error:', error);
+    res.status(500).json({ message: 'Server error stopping copy trade.' });
+  }
+});
+
 module.exports = router;

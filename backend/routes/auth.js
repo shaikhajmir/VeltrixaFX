@@ -146,4 +146,109 @@ router.get('/me', authMiddleware, async (req, res) => {
   }
 });
 
+// PASSWORD RECOVERY REQUEST
+router.post('/password-recovery', async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: 'Email address is required.' });
+  }
+
+  try {
+    const user = await dbGet('SELECT id FROM users WHERE email = ?', [email]);
+    if (!user) {
+      return res.status(404).json({ message: 'No account found with this email address.' });
+    }
+
+    // Generate 6-digit OTP code
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+
+    // Store or replace OTP row
+    await dbRun(
+      'INSERT OR REPLACE INTO password_recoveries (email, code, expires_at) VALUES (?, ?, ?)',
+      [email, otp, expiresAt]
+    );
+
+    res.json({
+      message: 'A 6-digit verification code has been generated.',
+      email,
+      code: otp // Returned directly to simplify deployment & staging verification
+    });
+  } catch (error) {
+    console.error('Password recovery request error:', error);
+    res.status(500).json({ message: 'Server error during password recovery.' });
+  }
+});
+
+// VERIFY OTP CODE
+router.post('/verify-otp', async (req, res) => {
+  const { email, otp } = req.body;
+  if (!email || !otp) {
+    return res.status(400).json({ message: 'Email and 6-digit OTP code are required.' });
+  }
+
+  try {
+    const recovery = await dbGet(
+      'SELECT * FROM password_recoveries WHERE email = ? AND code = ?',
+      [email, otp.trim()]
+    );
+
+    if (!recovery) {
+      return res.status(400).json({ message: 'Invalid or incorrect verification code.' });
+    }
+
+    if (new Date(recovery.expires_at) < new Date()) {
+      return res.status(400).json({ message: 'Verification code has expired. Please request a new one.' });
+    }
+
+    res.json({ message: 'OTP verified successfully.', email, otp });
+  } catch (error) {
+    console.error('Verify OTP error:', error);
+    res.status(500).json({ message: 'Server error verifying OTP code.' });
+  }
+});
+
+// PASSWORD RESET SUBMIT
+router.post('/password-reset', async (req, res) => {
+  const { email, otp, password } = req.body;
+  if (!email || !otp || !password) {
+    return res.status(400).json({ message: 'Email, OTP, and new password are required.' });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({ message: 'Password must be at least 6 characters long.' });
+  }
+
+  try {
+    // Re-verify code validity
+    const recovery = await dbGet(
+      'SELECT * FROM password_recoveries WHERE email = ? AND code = ?',
+      [email, otp.trim()]
+    );
+
+    if (!recovery) {
+      return res.status(400).json({ message: 'Invalid request or expired verification code.' });
+    }
+
+    if (new Date(recovery.expires_at) < new Date()) {
+      return res.status(400).json({ message: 'Verification code has expired.' });
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Update DB
+    await dbRun('UPDATE users SET password = ? WHERE email = ?', [hashedPassword, email]);
+
+    // Delete recovery record
+    await dbRun('DELETE FROM password_recoveries WHERE email = ?', [email]);
+
+    res.json({ message: 'Password reset successful! You can now log in.' });
+  } catch (error) {
+    console.error('Password reset error:', error);
+    res.status(500).json({ message: 'Server error performing password reset.' });
+  }
+});
+
 module.exports = router;
