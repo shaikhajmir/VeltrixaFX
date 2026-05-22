@@ -375,23 +375,13 @@
 </div>
 <div>
 <h3 class="font-headline-md text-headline-md text-on-surface mb-md">Copied Portfolio</h3>
-<div class="glass-card p-md rounded-xl">
-<div class="flex justify-between items-center mb-md">
+<div class="glass-card p-md rounded-xl space-y-md">
+<div class="flex justify-between items-center pb-sm border-b border-white/5">
 <span class="text-on-surface-variant">Active Strategies</span>
-<span class="bg-primary/20 text-primary px-sm py-1 rounded-full text-xs font-bold">3 Running</span>
+<span id="active-strategies-count" class="bg-primary/20 text-primary px-sm py-1 rounded-full text-xs font-bold">0 Running</span>
 </div>
-<div class="space-y-sm">
-<div class="flex justify-between">
-<span class="text-sm">Total Profit/Loss</span>
-<span class="font-data-mono text-[#10B981]">+$4,210.45</span>
-</div>
-<div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
-<div class="bg-secondary h-full" style="width: 65%;"></div>
-</div>
-<div class="flex justify-between text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">
-<span>Equity: $128,802</span>
-<span>Margin: 24%</span>
-</div>
+<div id="copied-strategies-list" class="space-y-md divide-y divide-white/5 pt-xs">
+<p class="text-xs text-outline text-center py-md">No active copy trading strategies. Select a professional trader below to start copy trading.</p>
 </div>
 </div>
 </div>
@@ -483,4 +473,239 @@
 <button class="fixed bottom-md right-[340px] bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50" onclick="window.location.href='institutional_profile_security_settings.html'">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
 </button>
+
+<!-- Copy Trading Capital Allocation Modal -->
+<div id="copy-trade-modal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-sm">
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-[#0B0F1A]/80 backdrop-blur-sm" onclick="closeCopyModal()"></div>
+  <!-- Modal Content -->
+  <div class="glass-card max-w-md w-full rounded-xl p-lg relative z-10 border border-primary/20 shadow-2xl">
+    <div class="flex justify-between items-center mb-md pb-sm border-b border-white/5">
+      <h3 class="font-headline-md text-headline-md text-primary">Start Copying Strategy</h3>
+      <button onclick="closeCopyModal()" class="text-outline hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+    <form id="copy-trade-form" class="space-y-md">
+      <div>
+        <label class="block text-xs font-bold text-outline uppercase tracking-wider mb-xs">Professional Trader</label>
+        <input type="text" id="modal-trader-name" readonly class="w-full bg-white/5 border border-white/10 rounded-lg py-sm px-md text-on-surface font-body-md focus:outline-none" />
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-secondary uppercase tracking-wider mb-xs" for="modal-allocated-amount">Allocation Capital ($ USD)</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-sm flex items-center text-outline">$</span>
+          <input type="number" step="0.01" min="1" id="modal-allocated-amount" required placeholder="Enter capital amount e.g. 5000" class="w-full bg-background border border-outline-variant rounded-lg py-sm pl-xl pr-md text-on-surface font-body-md focus:border-secondary focus:ring-1 focus:ring-secondary/30 transition-all outline-none" />
+        </div>
+        <p class="text-[10px] text-outline mt-1">Allocation capital is deducted from your main trading account balance.</p>
+      </div>
+      <div class="flex gap-md pt-sm">
+        <button type="button" onclick="closeCopyModal()" class="flex-1 bg-white/5 hover:bg-white/10 text-on-surface font-bold py-sm rounded-lg transition-all">
+          Cancel
+        </button>
+        <button type="submit" class="flex-1 bg-primary text-on-primary font-bold py-sm rounded-lg hover:brightness-110 active:scale-95 transition-all">
+          CONFIRM ALLOCATION
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+let activeCopies = [];
+let portfolioInterval = null;
+
+function openCopyModal(traderName) {
+  document.getElementById('modal-trader-name').value = traderName;
+  document.getElementById('modal-allocated-amount').value = '';
+  document.getElementById('copy-trade-modal').classList.remove('hidden');
+}
+
+function closeCopyModal() {
+  document.getElementById('copy-trade-modal').classList.add('hidden');
+}
+
+async function loadCopiedPortfolio() {
+  try {
+    const res = await fetch('/api/trading/copy/active');
+    if (!res.ok) throw new Error('Failed to fetch copied strategies');
+    activeCopies = await res.json();
+    
+    const countBadge = document.getElementById('active-strategies-count');
+    const listContainer = document.getElementById('copied-strategies-list');
+    
+    countBadge.textContent = `${activeCopies.length} Running`;
+    
+    if (activeCopies.length === 0) {
+      listContainer.innerHTML = `<p class="text-xs text-outline text-center py-md">No active copy trading strategies. Select a professional trader below to start copy trading.</p>`;
+      return;
+    }
+    
+    renderPortfolioList(listContainer);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function renderPortfolioList(container) {
+  container.innerHTML = '';
+  activeCopies.forEach(copy => {
+    const el = document.createElement('div');
+    el.className = 'py-sm space-y-xs first:pt-0';
+    el.dataset.relationshipId = copy.id;
+    
+    // Simulate interactive live profit/loss updates based on WinRate and ROI
+    const fluctuation = (Math.random() - 0.5) * 0.01;
+    const profit = copy.allocated_amount * (copy.roi_rate / 100 + fluctuation);
+    const isProfit = profit >= 0;
+    
+    el.innerHTML = `
+      <div class="flex justify-between items-center">
+        <div>
+          <h5 class="font-bold text-on-surface text-sm">${copy.trader_name}</h5>
+          <p class="text-xs text-outline font-data-mono">Allocated: $${parseFloat(copy.allocated_amount).toLocaleString('en-US', {minimumFractionDigits: 2})} USD</p>
+        </div>
+        <div class="text-right">
+          <p class="font-data-mono text-sm ${isProfit ? 'text-[#10B981]' : 'text-[#EF4444]'}">
+            ${isProfit ? '+' : ''}$${profit.toFixed(2)} USD
+          </p>
+          <p class="text-[10px] text-outline">Win Rate: ${copy.win_rate}%</p>
+        </div>
+      </div>
+      <div class="flex justify-between items-center gap-sm">
+        <span class="text-[10px] px-2 py-0.5 rounded uppercase tracking-wider font-bold ${
+          copy.risk_score === 'Low' ? 'bg-[#10B981]/10 text-[#10B981]' :
+          copy.risk_score === 'High' ? 'bg-[#EF4444]/10 text-[#EF4444]' : 'bg-[#F59E0B]/10 text-[#F59E0B]'
+        }">
+          ${copy.risk_score} Risk
+        </span>
+        <button onclick="stopCopying(${copy.id})" class="text-red-400 hover:text-red-300 font-label-caps text-[10px] uppercase border border-red-500/20 px-2 py-0.5 rounded hover:bg-red-500/5 transition-all">
+          Stop Copying
+        </button>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+async function stopCopying(relationshipId) {
+  if (!confirm('Are you sure you want to stop copying this strategy? Your allocated capital and any accumulated profits will be refunded to your wallet balance.')) {
+    return;
+  }
+  
+  try {
+    const res = await fetch('/api/trading/copy/stop', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ relationshipId })
+    });
+    
+    const data = await res.json();
+    if (res.ok) {
+      showToast(`Stopped copying strategy! Capital and profits refunded.`, 'success');
+      loadCopiedPortfolio();
+      if (window.checkSession) {
+        window.checkSession();
+      }
+    } else {
+      showToast(data.message || 'Failed to stop copy strategy.', 'error');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Network error, please try again.', 'error');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Bind all Copy buttons dynamically
+  function bindCopyButtons() {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+      const text = btn.textContent.trim().toLowerCase();
+      if (text === 'copy trade' || text === 'copy') {
+        btn.removeAttribute('onclick');
+        
+        btn.onclick = (e) => {
+          e.preventDefault();
+          
+          let traderName = '';
+          const card = btn.closest('.glass-card');
+          const row = btn.closest('tr');
+          
+          if (card) {
+            const h4 = card.querySelector('h4');
+            if (h4) traderName = h4.textContent.trim();
+          } else if (row) {
+            const span = row.querySelector('.font-body-md');
+            if (span) traderName = span.textContent.trim();
+          }
+          
+          if (!traderName) {
+            traderName = 'Elite Professional Strategy';
+          }
+          
+          openCopyModal(traderName);
+        };
+      }
+    });
+  }
+
+  // Handle Form Submit
+  const form = document.getElementById('copy-trade-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const traderName = document.getElementById('modal-trader-name').value;
+    const allocatedAmount = document.getElementById('modal-allocated-amount').value;
+
+    if (!allocatedAmount || parseFloat(allocatedAmount) <= 0) {
+      showToast('Please enter a valid allocation capital.', 'error');
+      return;
+    }
+
+    const confirmBtn = form.querySelector('button[type="submit"]');
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = 'ALLOCATING...';
+
+    try {
+      const res = await fetch('/api/trading/copy/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ traderName, allocatedAmount })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        showToast(`Successfully allocated $${parseFloat(allocatedAmount).toLocaleString()} USD to copy ${traderName}!`, 'success');
+        closeCopyModal();
+        loadCopiedPortfolio();
+        if (window.checkSession) {
+          window.checkSession();
+        }
+      } else {
+        showToast(data.message || 'Allocation failed.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showToast('Network error, please try again.', 'error');
+    } finally {
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = 'CONFIRM ALLOCATION';
+    }
+  });
+
+  // Delayed trigger to let CSS/HTML render fully
+  setTimeout(() => {
+    bindCopyButtons();
+    loadCopiedPortfolio();
+  }, 500);
+
+  // Set interval to periodically update active strategy profits dynamically (real-time feel)
+  setInterval(() => {
+    const listContainer = document.getElementById('copied-strategies-list');
+    if (activeCopies.length > 0 && listContainer) {
+      renderPortfolioList(listContainer);
+    }
+  }, 3500);
+});
+</script>
 </body></html>

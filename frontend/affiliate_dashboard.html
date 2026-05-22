@@ -232,7 +232,7 @@
 <div class="glass-card p-md rounded-xl space-y-sm">
 <p class="font-label-caps text-label-caps text-outline uppercase">Total Referrals</p>
 <div class="flex items-end justify-between">
-<span class="font-data-mono text-headline-md text-secondary">2,482</span>
+<span id="affiliate-total-referrals" class="font-data-mono text-headline-md text-secondary">---</span>
 <span class="text-secondary text-body-sm">+12%</span>
 </div>
 </div>
@@ -240,7 +240,7 @@
 <div class="glass-card p-md rounded-xl space-y-sm">
 <p class="font-label-caps text-label-caps text-outline uppercase">Active Traders</p>
 <div class="flex items-end justify-between">
-<span class="font-data-mono text-headline-md text-primary">842</span>
+<span id="affiliate-active-traders" class="font-data-mono text-headline-md text-primary">---</span>
 <span class="text-primary text-body-sm">34%</span>
 </div>
 </div>
@@ -248,14 +248,14 @@
 <div class="ai-gradient-border p-md rounded-xl space-y-sm overflow-hidden">
 <p class="font-label-caps text-label-caps text-secondary-container uppercase">Total Earnings</p>
 <div class="flex items-end justify-between">
-<span class="font-data-mono text-headline-md text-on-surface">$124,500</span>
+<span id="affiliate-total-earnings" class="font-data-mono text-headline-md text-on-surface">---</span>
 </div>
 </div>
 <!-- Card 4 -->
 <div class="glass-card p-md rounded-xl space-y-sm">
 <p class="font-label-caps text-label-caps text-outline uppercase">Monthly Comm.</p>
 <div class="flex items-end justify-between">
-<span class="font-data-mono text-headline-md text-on-surface">$18,240</span>
+<span id="affiliate-monthly-commission" class="font-data-mono text-headline-md text-on-surface">---</span>
 <span class="text-secondary text-body-sm">↑</span>
 </div>
 </div>
@@ -285,8 +285,8 @@
 <h3 class="font-headline-md text-headline-md text-on-surface">Your Invitation Link</h3>
 <p class="text-on-surface-variant font-body-sm text-body-sm">Share this unique link to start earning lifetime commissions on every trade made by your network.</p>
 <div class="flex items-center gap-xs bg-surface-container-lowest p-xs rounded border border-outline-variant/30">
-<input class="bg-transparent border-none text-on-surface font-data-mono text-body-sm flex-1 focus:ring-0" readonly="" type="text" value="https://veltrixafx.com/ref/partner_4829X"/>
-<button class="bg-secondary text-on-secondary px-md py-sm rounded font-bold text-label-caps hover:brightness-110" onclick="window.location.href='copy_trading.html'">COPY</button>
+<input id="affiliate-referral-link" class="bg-transparent border-none text-on-surface font-data-mono text-body-sm flex-1 focus:ring-0" readonly="" type="text" value="https://veltrixafx.com/ref/partner_4829X"/>
+<button class="bg-secondary text-on-secondary px-md py-sm rounded font-bold text-label-caps hover:brightness-110">COPY</button>
 </div>
 <div class="flex items-center justify-between pt-md">
 <div class="flex gap-sm">
@@ -372,33 +372,9 @@
 <th class="p-md font-label-caps text-label-caps text-outline uppercase">Status</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant/20">
+<tbody id="commissions-table-body" class="divide-y divide-outline-variant/20">
 <tr class="hover:bg-white/5 transition-colors">
-<td class="p-md font-data-mono text-body-sm text-on-surface">Node_48291 (L1)</td>
-<td class="p-md font-data-mono text-body-sm text-on-surface-variant">$42,400.00</td>
-<td class="p-md font-data-mono text-body-sm text-secondary font-bold">+$424.00</td>
-<td class="p-md font-data-mono text-[12px] text-outline">2023-10-24 14:22</td>
-<td class="p-md">
-<span class="px-sm py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold uppercase">Completed</span>
-</td>
-</tr>
-<tr class="hover:bg-white/5 transition-colors">
-<td class="p-md font-data-mono text-body-sm text-on-surface">Veltrix_User_02 (L2)</td>
-<td class="p-md font-data-mono text-body-sm text-on-surface-variant">$112,000.00</td>
-<td class="p-md font-data-mono text-body-sm text-secondary font-bold">+$336.00</td>
-<td class="p-md font-data-mono text-[12px] text-outline">2023-10-24 12:05</td>
-<td class="p-md">
-<span class="px-sm py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold uppercase">Completed</span>
-</td>
-</tr>
-<tr class="hover:bg-white/5 transition-colors">
-<td class="p-md font-data-mono text-body-sm text-on-surface">Alpha_Quant_X (L1)</td>
-<td class="p-md font-data-mono text-body-sm text-on-surface-variant">$8,200.00</td>
-<td class="p-md font-data-mono text-body-sm text-secondary font-bold">+$82.00</td>
-<td class="p-md font-data-mono text-[12px] text-outline">2023-10-23 23:59</td>
-<td class="p-md">
-<span class="px-sm py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">Pending</span>
-</td>
+<td colspan="5" class="p-md text-center text-outline text-xs">Loading commissions ledger...</td>
 </tr>
 </tbody>
 </table>
@@ -503,4 +479,120 @@
 <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/5 blur-[150px] rounded-full"></div>
 <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-secondary/5 blur-[150px] rounded-full"></div>
 </div>
+
+<script>
+async function loadAffiliateData() {
+  try {
+    const res = await fetch('/api/affiliate/stats');
+    if (!res.ok) throw new Error('Failed to fetch affiliate statistics');
+    const data = await res.json();
+
+    // Populate stats cards
+    document.getElementById('affiliate-total-referrals').textContent = data.totalReferrals;
+    document.getElementById('affiliate-active-traders').textContent = data.activeTraders;
+    document.getElementById('affiliate-total-earnings').textContent = `$${parseFloat(data.totalEarnings).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    document.getElementById('affiliate-monthly-commission').textContent = `$${parseFloat(data.monthlyCommission).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+    // Populate Referral Link
+    const linkInput = document.getElementById('affiliate-referral-link');
+    if (linkInput) {
+      linkInput.value = data.referralLink;
+    }
+
+    // Populate Recent Commissions Table
+    const tbody = document.getElementById('commissions-table-body');
+    if (tbody) {
+      tbody.innerHTML = '';
+      if (data.commissions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-md text-center text-outline text-xs">No referral commissions recorded yet.</td></tr>`;
+        return;
+      }
+
+      data.commissions.forEach(c => {
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-white/5 transition-colors';
+
+        // Format timestamp
+        const dateStr = new Date(c.timestamp).toISOString().replace('T', ' ').substring(0, 16);
+
+        let statusClass = 'bg-[#10B981]/10 text-[#10B981]';
+        if (c.status === 'Completed') {
+          statusClass = 'bg-[#10B981]/10 text-[#10B981]';
+        } else if (c.status === 'Withdrawn') {
+          statusClass = 'bg-white/10 text-outline';
+        } else if (c.status === 'Pending') {
+          statusClass = 'bg-primary/10 text-primary';
+        }
+
+        row.innerHTML = `
+          <td class="p-md font-data-mono text-body-sm text-on-surface">${c.referral_name} (L${c.level})</td>
+          <td class="p-md font-data-mono text-body-sm text-on-surface-variant">$${parseFloat(c.trade_volume).toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+          <td class="p-md font-data-mono text-body-sm text-secondary font-bold">+$${parseFloat(c.commission_amount).toFixed(2)}</td>
+          <td class="p-md font-data-mono text-[12px] text-outline">${dateStr}</td>
+          <td class="p-md">
+            <span class="px-sm py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${statusClass}">
+              ${c.status}
+            </span>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Bind Withdraw button
+  const withdrawBtn = document.querySelector('button.bg-surface-container-highest');
+  if (withdrawBtn) {
+    withdrawBtn.removeAttribute('onclick');
+    withdrawBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      withdrawBtn.disabled = true;
+      withdrawBtn.textContent = 'Processing Payout...';
+      
+      try {
+        const res = await fetch('/api/affiliate/withdraw', { method: 'POST' });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showToast(`Successfully withdrew $${parseFloat(data.amountTransferred).toFixed(2)} USD to trading wallet!`, 'success');
+          loadAffiliateData();
+          if (window.checkSession) {
+            window.checkSession();
+          }
+        } else {
+          showToast(data.message || 'No earnings available for payout.', 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showToast('Network error, please try again.', 'error');
+      } finally {
+        withdrawBtn.disabled = false;
+        withdrawBtn.textContent = 'Withdraw Earnings';
+      }
+    });
+  }
+
+  // Bind copy referral link button
+  const copyLinkBtn = document.querySelector('.lg\\:col-span-5 button');
+  if (copyLinkBtn) {
+    copyLinkBtn.removeAttribute('onclick');
+    copyLinkBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const linkInput = document.getElementById('affiliate-referral-link');
+      if (linkInput) {
+        navigator.clipboard.writeText(linkInput.value);
+        showToast('Affiliate invitation link copied to clipboard!', 'success');
+      }
+    });
+  }
+
+  // Delayed trigger to ensure session checks complete
+  setTimeout(loadAffiliateData, 500);
+});
+</script>
 </body></html>

@@ -267,63 +267,54 @@
 <thead class="bg-white/5 border-b border-white/10">
 <tr>
 <th class="p-md font-label-caps text-label-caps text-outline uppercase">Ticket ID</th>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Category</th>
 <th class="p-md font-label-caps text-label-caps text-outline uppercase">Subject</th>
 <th class="p-md font-label-caps text-label-caps text-outline uppercase">Status</th>
-<th class="p-md font-label-caps text-label-caps text-outline uppercase">Priority</th>
-<th class="p-md font-label-caps text-label-caps text-outline uppercase">Agent</th>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Date Submitted</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-white/5 font-data-mono text-data-mono">
+<tbody id="tickets-table-body" class="divide-y divide-white/5 font-data-mono text-data-mono">
 <tr class="hover:bg-white/[0.03] transition-colors">
-<td class="p-md text-primary">#VX-88912</td>
-<td class="p-md text-on-surface">API Latency on JPY/USD pairs</td>
-<td class="p-md">
-<span class="px-xs py-0.5 rounded text-[10px] bg-secondary-container/20 text-secondary border border-secondary/30">OPEN</span>
-</td>
-<td class="p-md">
-<span class="flex items-center gap-xs text-error">
-<span class="w-2 h-2 rounded-full bg-error"></span> HIGH
-                                            </span>
-</td>
-<td class="p-md flex items-center gap-sm">
-<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-[10px]">AV</div>
-                                            Alex V.
-                                        </td>
-</tr>
-<tr class="hover:bg-white/[0.03] transition-colors">
-<td class="p-md text-primary">#VX-88744</td>
-<td class="p-md text-on-surface">Tier 3 Verification Status</td>
-<td class="p-md">
-<span class="px-xs py-0.5 rounded text-[10px] bg-outline/10 text-outline border border-outline/20">RESOLVED</span>
-</td>
-<td class="p-md">
-<span class="flex items-center gap-xs text-on-surface-variant">
-<span class="w-2 h-2 rounded-full bg-outline"></span> MEDIUM
-                                            </span>
-</td>
-<td class="p-md flex items-center gap-sm">
-<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-[10px]">SM</div>
-                                            Sarah M.
-                                        </td>
-</tr>
-<tr class="hover:bg-white/[0.03] transition-colors">
-<td class="p-md text-primary">#VX-88690</td>
-<td class="p-md text-on-surface">Smart Contract Execution Error</td>
-<td class="p-md">
-<span class="px-xs py-0.5 rounded text-[10px] bg-secondary-container/20 text-secondary border border-secondary/30">OPEN</span>
-</td>
-<td class="p-md">
-<span class="flex items-center gap-xs text-error">
-<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span> CRITICAL
-                                            </span>
-</td>
-<td class="p-md flex items-center gap-sm">
-<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center text-[10px]">JD</div>
-                                            John D.
-                                        </td>
+<td colspan="5" class="p-md text-center text-outline font-body-sm">Loading active support tickets...</td>
 </tr>
 </tbody>
 </table>
+</div>
+
+<!-- Submit Ticket Card -->
+<div class="glass-card p-lg rounded-xl space-y-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Submit a Support Ticket</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Describe your issue in detail. An enterprise support analyst will be assigned to your case immediately.</p>
+
+<form id="create-ticket-form" class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Category -->
+<div class="space-y-xs">
+<label for="ticket-category" class="font-label-caps text-label-caps text-outline uppercase">Category</label>
+<select id="ticket-category" required class="w-full bg-background/50 border border-outline-variant rounded-lg px-md py-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-sm text-on-background">
+<option value="Technical" class="bg-background">Technical Support</option>
+<option value="Financial" class="bg-background">Financial / Transactions</option>
+<option value="Account" class="bg-background">Account Settings / KYC</option>
+<option value="Security" class="bg-background">Security & API Access</option>
+</select>
+</div>
+<!-- Subject -->
+<div class="space-y-xs">
+<label for="ticket-subject" class="font-label-caps text-label-caps text-outline uppercase">Subject</label>
+<input type="text" id="ticket-subject" placeholder="e.g. JPY/USD Margin adjustments" required class="w-full bg-background/50 border border-outline-variant rounded-lg px-md py-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-sm text-on-background"/>
+</div>
+</div>
+<!-- Message -->
+<div class="space-y-xs">
+<label for="ticket-message" class="font-label-caps text-label-caps text-outline uppercase">Detailed Description</label>
+<textarea id="ticket-message" rows="4" placeholder="Explain the technical issue or account parameter update you require..." required class="w-full bg-background/50 border border-outline-variant rounded-lg px-md py-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-sm text-on-background"></textarea>
+</div>
+
+<!-- Submit Button -->
+<button type="submit" class="w-full py-sm bg-gradient-to-r from-primary-container to-blue-600 text-white font-bold rounded-lg hover:brightness-110 active:scale-95 transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)]">
+Submit Support Request
+</button>
+</form>
 </div>
 </div>
 <!-- AI Support Terminal -->
@@ -440,4 +431,105 @@
 </div>
 </main>
 </div>
+<script>
+// Dynamic Support Ticket Scripts
+async function loadTickets() {
+  const tableBody = document.getElementById('tickets-table-body');
+  if (!tableBody) return;
+
+  try {
+    const res = await fetch('/api/support/tickets');
+    if (res.ok) {
+      const tickets = await res.json();
+      tableBody.innerHTML = '';
+
+      if (tickets.length === 0) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="5" class="p-md text-center text-outline font-body-sm">
+              No support tickets found. Open one below!
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tickets.forEach(ticket => {
+        let statusBadge = '';
+        if (ticket.status === 'Open' || ticket.status === 'OPEN') {
+          statusBadge = `<span class="px-xs py-0.5 rounded text-[10px] bg-secondary-container/20 text-secondary border border-secondary/30">OPEN</span>`;
+        } else {
+          statusBadge = `<span class="px-xs py-0.5 rounded text-[10px] bg-outline/10 text-outline border border-outline/20">RESOLVED</span>`;
+        }
+
+        const dateStr = new Date(ticket.timestamp || Date.now()).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-white/[0.03] transition-colors';
+        row.innerHTML = `
+          <td class="p-md text-primary font-bold">#VX-${String(ticket.id).padStart(5, '0')}</td>
+          <td class="p-md text-secondary font-semibold text-xs uppercase tracking-wider">${ticket.category}</td>
+          <td class="p-md text-on-surface font-body-sm max-w-xs truncate" title="${ticket.message}">${ticket.subject}</td>
+          <td class="p-md">${statusBadge}</td>
+          <td class="p-md text-on-surface-variant font-body-sm">${dateStr}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    } else {
+      console.error('Failed to load tickets:', res.statusText);
+    }
+  } catch (error) {
+    console.error('Error fetching tickets:', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(loadTickets, 300);
+
+  const form = document.getElementById('create-ticket-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const category = document.getElementById('ticket-category').value;
+      const subject = document.getElementById('ticket-subject').value;
+      const message = document.getElementById('ticket-message').value;
+
+      try {
+        const res = await fetch('/api/support/ticket', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ category, subject, message })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          if (window.showToast) {
+            window.showToast(data.message || 'Support ticket submitted successfully!');
+          }
+          form.reset();
+          loadTickets();
+        } else {
+          if (window.showToast) {
+            window.showToast(data.message || 'Failed to submit support ticket.', 'error');
+          }
+        }
+      } catch (error) {
+        console.error('Error submitting support ticket:', error);
+        if (window.showToast) {
+          window.showToast('Network error submitting support ticket.', 'error');
+        }
+      }
+    });
+  }
+});
+</script>
 </body></html>
