@@ -120,6 +120,59 @@ async function initDatabase() {
       )
     `);
 
+    // 7. Password Recoveries Table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS password_recoveries (
+        email TEXT UNIQUE NOT NULL,
+        code TEXT NOT NULL,
+        expires_at DATETIME NOT NULL
+      )
+    `);
+
+    // 8. Copy Trading Relationships Table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS copy_relationships (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        trader_name TEXT NOT NULL,
+        roi_rate REAL NOT NULL,
+        win_rate INTEGER NOT NULL,
+        risk_score TEXT NOT NULL,
+        allocated_amount REAL NOT NULL,
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      )
+    `);
+
+    // 9. Commissions Table (Affiliate)
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS commissions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        referral_name TEXT NOT NULL,
+        level INTEGER NOT NULL,
+        trade_volume REAL NOT NULL,
+        commission_amount REAL NOT NULL,
+        status TEXT DEFAULT 'Completed',
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      )
+    `);
+
+    // 10. Support Tickets Table
+    await dbRun(`
+      CREATE TABLE IF NOT EXISTS support_tickets (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        category TEXT NOT NULL,
+        subject TEXT NOT NULL,
+        message TEXT NOT NULL,
+        status TEXT DEFAULT 'Open',
+        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      )
+    `);
+
     console.log('Database tables successfully initialized.');
   } catch (error) {
     console.error('Error initializing database tables:', error);
